@@ -64,10 +64,18 @@ void draw() {
     y = int(random(kuva.height));
     
     color vari = kuva.get(x, y);
-    fill(vari, 200);
+    fill(vari, 255);
     
     //Pienennetään kuvion kokoa ja piirretään kuvio. 
     koko = pienenee(koko);
-    rect(x, y, koko, koko);
+    
+    //Neliö
+   // rect(x, y, koko, koko);
+    
+    //Mikkihiiri
+    ellipse(x-0.45*koko, y-0.55*koko, koko, koko);
+    ellipse(x+0.45*koko, y-0.55*koko, koko, koko);
+    ellipse(x, y, 1.6*koko, 1.6*koko);
+
   }
 }
