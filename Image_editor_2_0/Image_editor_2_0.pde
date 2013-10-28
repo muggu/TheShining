@@ -9,9 +9,10 @@ int pallot;
 int pallojenMaara;
 int sydan = 1;
 int palloKorva = 2;
+int tahti = 3;
 int pienennysKerroin = 1;
 
-int leimasin = palloKorva;
+int leimasin;
 
 float ellipsiMuuntokerroinX = 0.50;
 float ellipsiMuuntokerroinY = 0.60;
@@ -33,15 +34,22 @@ void setup() {
   if (leimasin == sydan){
   pieniKoko = 50;
   suuriKoko = 500;
-  pallojenMaara = 1000;
+  pallojenMaara = 1500;
   pienennysKerroin = 2;
   }
   
   if(leimasin == palloKorva){
   pieniKoko = 10;
   suuriKoko = 100;
-  pallojenMaara = 1500;
+  pallojenMaara = 2000;
   
+  }
+  
+  if(leimasin == tahti){
+  pieniKoko = 50;
+  suuriKoko = 500;
+  pallojenMaara = 1000; 
+  pienennysKerroin = 4; 
   }
   koko = suuriKoko;
 
@@ -58,16 +66,20 @@ boolean kaynnissa(){
  return false;
 }
 
+void leimasimenValinta(int arvo){
+leimasin = arvo; 
+}
+
 /*
 Metodi pienentää parametrina annettua lukua riippuen sen koosta,
 ja palauttaa muutetun lukuarvon.
 */
 float pienenee(float luku){
 if(luku > pieniKoko){
-  if(luku < 0.2*suuriKoko){
+  if(luku < 0.4*suuriKoko){
     luku -=0.05*pienennysKerroin;
   }
-  if(luku < 0.4*suuriKoko){
+  if(luku < 0.6*suuriKoko){
     luku -=0.1*pienennysKerroin;
   }
   else{
@@ -97,7 +109,8 @@ void draw() {
     koko = pienenee(koko);
     
     color vari = kuva.get(x, y);
-    
+    fill(vari,255);
+
     //Sydän
     if(leimasin == sydan){
       
@@ -109,7 +122,6 @@ void draw() {
       float sydanY3 = y + sydanMuuntokerroinY2*koko;
   
       smooth();
-      fill(vari,255);
       beginShape();
       vertex(x, y); 
       bezierVertex(x, sydanY1, sydanX1, sydanY2, x, sydanY3); 
@@ -132,14 +144,19 @@ void draw() {
    // color variEllipsi1 = kuva.get(int(ellipsiX1), int(ellipsiY1));
    // color variEllipsi2 = kuva.get(int(ellipsiX2), int(ellipsiY2));
 
-    fill(vari, 255); 
-    ellipse(ellipsiX1, ellipsiY1, koko, koko);
+      ellipse(ellipsiX1, ellipsiY1, koko, koko);
+      
+      ellipse(ellipsiX2, ellipsiY2, koko, koko);
+      
+      ellipse(x, y, ellipsiKokokerroin*koko, ellipsiKokokerroin*koko);
+    }
     
-    fill(vari, 255);
-    ellipse(ellipsiX2, ellipsiY2, koko, koko);
-    
-    fill(vari, 255);
-    ellipse(x, y, ellipsiKokokerroin*koko, ellipsiKokokerroin*koko);
+    if(leimasin == tahti){
+      
+      triangle(x-0.12*koko, y+0.15*koko, x, y-0.1*koko, x+0.12*koko, y+0.15*koko);
+      triangle(x-0.12*koko, y, x, y+0.22*koko, x+0.12*koko, y); 
+
+      
     }
   }
 }
