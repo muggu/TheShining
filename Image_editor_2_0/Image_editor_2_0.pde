@@ -22,8 +22,10 @@ float sydanMuuntokerroinX = 0.3;
 float sydanMuuntokerroinY = 0.1;
 float sydanMuuntokerroinY2 = 0.2;
 
-
-boolean piirretty = false;
+float kolmionMuuntokerroinX = 0.12;
+float kolmionMuuntokerroinY = 0.15;
+float kolmionMuuntokerroinY2 = 0.08;
+float kolmionMuuntokerroinY3 = 0.22; 
 
 void setup() {
   size(600, 480);
@@ -32,7 +34,7 @@ void setup() {
   noStroke();
   background(255);
    
-  asetaLeimasin(tahti);
+  asetaLeimasin(sydan);
   
   if (leimasin == sydan){
   pieniKoko = 50;
@@ -89,7 +91,7 @@ if(luku > pieniKoko){
     luku -=0.1*pienennysKerroin;
   }
   else{
-    luku -=0.2*pienennysKerroin;
+    luku -=0.3*pienennysKerroin;
   }
 }
 else{
@@ -102,29 +104,22 @@ void asetaLeimasin(int luku){
 leimasin = luku;
 }
 
-
-/*
-Kuvan piirto
-*/
-void draw() {
+void piirra(){
+  x = int(random(kuva.width));
+  y = int(random(kuva.height));  
   
-  if(kaynnissa()){
+  //Pienennetään kuvion kokoa ja piirretään kuvio. 
+  koko = pienenee(koko);
     
-    //Valitaan randomikoordinaatteja kuvasta, joita piirretään.
-    x = int(random(kuva.width));
-    y = int(random(kuva.height));
-    
-    
-    //Pienennetään kuvion kokoa ja piirretään kuvio. 
-    koko = pienenee(koko);
-    
-    color vari = kuva.get(x, y);
-    fill(vari,255);
+  color vari = kuva.get(x, y);
+  fill(vari,255);
+  
+}
 
-    //Sydän
-    if(leimasin == sydan){
-      
-      //Apumuuttujia
+
+void piirraSydan(){
+  
+   //Apumuuttujia
       float sydanX1 = x + sydanMuuntokerroinX*koko; 
       float sydanX2 = x - sydanMuuntokerroinX*koko;
       float sydanY1 = y - sydanMuuntokerroinY2*koko;
@@ -138,59 +133,85 @@ void draw() {
       vertex(x, y); 
       bezierVertex(x, sydanY1, sydanX2, sydanY2, x, sydanY3); 
       endShape();
+      
+}
 
-
-    }
-    
-    //Mikki hiiri
-    if(leimasin == palloKorva){
-    // Muunnetaan eri ellipsien x- ja y-koordinaatit kuntoon
+void piirraPalloKorva(){
+  
+      // Muunnetaan eri ellipsien x- ja y-koordinaatit kuntoon
       float ellipsiX1 = x-ellipsiMuuntokerroinX*koko; 
       float ellipsiY1 = y-ellipsiMuuntokerroinY*koko;
       float ellipsiX2 = x+ellipsiMuuntokerroinX*koko;
       float ellipsiY2 = y-ellipsiMuuntokerroinY*koko;
-      
-    //Mikkihiiren eri pallojen värit
-   // color variEllipsi1 = kuva.get(int(ellipsiX1), int(ellipsiY1));
-   // color variEllipsi2 = kuva.get(int(ellipsiX2), int(ellipsiY2));
 
       ellipse(ellipsiX1, ellipsiY1, koko, koko);
       
       ellipse(ellipsiX2, ellipsiY2, koko, koko);
       
       ellipse(x, y, ellipsiKokokerroin*koko, ellipsiKokokerroin*koko);
-    
-      if(koko < 0.4*suuriKoko){
-    
-        x = int(random(kuva.width));
-        y = int(random(kuva.height));
+}
 
-        color vari1 = kuva.get(x, y);
-        fill(vari1,255);
-        
-        float ellipsiX11 = x-ellipsiMuuntokerroinX*koko; 
-        float ellipsiY11 = y-ellipsiMuuntokerroinY*koko;
-        float ellipsiX21 = x+ellipsiMuuntokerroinX*koko;
-        float ellipsiY21 = y-ellipsiMuuntokerroinY*koko;
-        
+void piirraTahti(){
+  float tahtiX1 = x-kolmionMuuntokerroinX*koko;
+  float tahtiX2 = x+kolmionMuuntokerroinX*koko;
+  float tahtiY1 = y+kolmionMuuntokerroinY*koko;
+  float tahtiY2 = y-kolmionMuuntokerroinY2*koko;
+  float tahtiY3 = y+kolmionMuuntokerroinY3*koko;
+  
+  triangle(tahtiX1, tahtiY1, x, tahtiY2, tahtiX2, tahtiY1);
+  triangle(tahtiX1, y, x,tahtiY3, tahtiX2, y);
+}
+
+/*
+Kuvan piirto
+*/
+void draw() {
+  
+  if(kaynnissa()){
+    
+    piirra();
+
+    //Sydän
+    if(leimasin == sydan){
+     piirraSydan();
+     
+      if(koko < 0.5*suuriKoko){
+        piirraSydan();
+        piirraSydan();
+      } 
+     
+    }
+    
+    //Mikki hiiri
+    if(leimasin == palloKorva){
       
-        
-        ellipse(ellipsiX11, ellipsiY11, koko, koko);
-        
-        ellipse(ellipsiX21, ellipsiY21, koko, koko);
-        
-        ellipse(x, y, ellipsiKokokerroin*koko, ellipsiKokokerroin*koko); 
-  }  
+      piirraPalloKorva();
+    
+      if(koko < 0.5*suuriKoko){
+        piirraPalloKorva();
+        piirraPalloKorva();
+      }  
+      
+      if(koko < 0.3*suuriKoko){
+       piirraPalloKorva();
+       piirraPalloKorva();
+       piirraPalloKorva();
+       piirraPalloKorva();
+      } 
 
 
 }
     
     if(leimasin == tahti){
       
-      triangle(x-0.12*koko, y+0.15*koko, x, y-0.08*koko, x+0.12*koko, y+0.15*koko);
-      triangle(x-0.12*koko, y, x, y+0.22*koko, x+0.12*koko, y); 
-
+      piirraTahti(); 
       
+      if(koko < 0.5*suuriKoko){
+        piirraTahti();
+        piirraTahti();
+      
+    }  
+
     }
   }
 }
