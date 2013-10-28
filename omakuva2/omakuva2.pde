@@ -1,20 +1,20 @@
 
 //oltava ulkoasuluokan attribuutteja
 PImage oletuskuva;
-OmaKuva omakuva;
+public OmaKuva omakuva; //julkinen, jotta voidaan kutsua paaluokan draw-metodissa ulkoasuluokan kautta
 
 //testaukseen, ei yhdistettyyn versioon
 void setup() {
   size(600,600);
   oletuskuva = loadImage("tausta.jpg");
-  omakuva = new OmaKuva(oletuskuva);
+  omakuva = new OmaKuva(oletuskuva); //ulkoasuluokassa luotava ilmentyma OmaKuva-luokasta
   omakuva.piirraKuva();
   valitseKuva();
 }
 
 //paaluokan draw-metodin on tarkkailtava, tarvitseeko oma kuva piirtaa
 void draw() {
-  //kutsupolut muokattava this.ulkoasu.omakuva.ladattuKuva tms.
+  //kutsupolut muokattava ulkoasu.omakuva.ladattuKuva ja ulkoasu.omakuva.piirretty
   if (omakuva.ladattuKuva != null && omakuva.piirretty == false) {
     omakuva.piirraKuva();
     
@@ -49,11 +49,10 @@ void tallennaOmaKuva(File polku) {
 public class OmaKuva {
   
   public PImage ladattuKuva;
-  PImage muokattuKuva;
   public boolean piirretty = false;
   
-  //taytyy sovittaa piirtoalueen mittoihin ja marginaaleihin
-  int sivu = width-50;
+  //taytyy sovittaa piirtoaluenelion sivun pituuteen ja marginaaleihin
+  int sivu = width-50; //sivun pituus pikseleina
   int marginaaliX = 25;
   int marginaaliY = 25;
   
@@ -109,7 +108,7 @@ public class OmaKuva {
     if (polku != null) {
       String nimi = polku.toString();
       //kaapataan pikselit uuteen kuvaan, joka on nelio
-      muokattuKuva = get(marginaaliX, marginaaliY, sivu, sivu);
+      PImage muokattuKuva = get(marginaaliX, marginaaliY, sivu, sivu);
       //tallennetaan nimella
       muokattuKuva.save(nimi +".png");
     } else {
