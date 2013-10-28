@@ -187,7 +187,7 @@ void draw() {
     
     if(leimasin == tahti){
       
-      triangle(x-0.12*koko, y+0.15*koko, x, y-0.1*koko, x+0.12*koko, y+0.15*koko);
+      triangle(x-0.12*koko, y+0.15*koko, x, y-0.08*koko, x+0.12*koko, y+0.15*koko);
       triangle(x-0.12*koko, y, x, y+0.22*koko, x+0.12*koko, y); 
 
       
