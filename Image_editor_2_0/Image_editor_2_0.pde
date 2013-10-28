@@ -23,13 +23,16 @@ float sydanMuuntokerroinY = 0.1;
 float sydanMuuntokerroinY2 = 0.2;
 
 
+boolean piirretty = false;
+
 void setup() {
   size(600, 480);
   kuva = loadImage("minionitpieni.jpg");
   imageMode(CENTER);
   noStroke();
   background(255);
-  
+   
+  asetaLeimasin(tahti);
   
   if (leimasin == sydan){
   pieniKoko = 50;
@@ -39,7 +42,7 @@ void setup() {
   }
   
   if(leimasin == palloKorva){
-  pieniKoko = 10;
+  pieniKoko = 8;
   suuriKoko = 100;
   pallojenMaara = 2000;
   
@@ -52,7 +55,6 @@ void setup() {
   pienennysKerroin = 4; 
   }
   koko = suuriKoko;
-
 }
 
 /*
@@ -76,10 +78,14 @@ ja palauttaa muutetun lukuarvon.
 */
 float pienenee(float luku){
 if(luku > pieniKoko){
-  if(luku < 0.4*suuriKoko){
+  if(luku < 0.3*suuriKoko){
+   luku -= 0.02*pienennysKerroin; 
+  }
+  
+  if(luku < 0.5*suuriKoko){
     luku -=0.05*pienennysKerroin;
   }
-  if(luku < 0.6*suuriKoko){
+  if(luku < 0.7*suuriKoko){
     luku -=0.1*pienennysKerroin;
   }
   else{
@@ -90,6 +96,10 @@ else{
   pallot += 1;
 }
 return luku;
+}
+
+void asetaLeimasin(int luku){
+leimasin = luku;
 }
 
 
@@ -149,7 +159,31 @@ void draw() {
       ellipse(ellipsiX2, ellipsiY2, koko, koko);
       
       ellipse(x, y, ellipsiKokokerroin*koko, ellipsiKokokerroin*koko);
-    }
+    
+      if(koko < 0.4*suuriKoko){
+    
+        x = int(random(kuva.width));
+        y = int(random(kuva.height));
+
+        color vari1 = kuva.get(x, y);
+        fill(vari1,255);
+        
+        float ellipsiX11 = x-ellipsiMuuntokerroinX*koko; 
+        float ellipsiY11 = y-ellipsiMuuntokerroinY*koko;
+        float ellipsiX21 = x+ellipsiMuuntokerroinX*koko;
+        float ellipsiY21 = y-ellipsiMuuntokerroinY*koko;
+        
+      
+        
+        ellipse(ellipsiX11, ellipsiY11, koko, koko);
+        
+        ellipse(ellipsiX21, ellipsiY21, koko, koko);
+        
+        ellipse(x, y, ellipsiKokokerroin*koko, ellipsiKokokerroin*koko); 
+  }  
+
+
+}
     
     if(leimasin == tahti){
       
