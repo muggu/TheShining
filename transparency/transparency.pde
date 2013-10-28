@@ -5,7 +5,7 @@ float transparency;
 void setup(){
   size(500,500);
   transparency = 0;
-  kuva = loadImage("minionitpieni2.jpg");
+  kuva = loadImage("minionitpieni.jpg");
 
 }
 
