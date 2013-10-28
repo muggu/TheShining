@@ -44,7 +44,7 @@ public class Ulkoasu {
   void piirraUlkoasu(){
    background(250);
    size(750, 700);
-   fill(200);
+   fill(200, 90);
    this.fontti = createFont("Courier New Bold", 20);
    textFont(fontti);
    text("Picture Editor 2.0", 70, 30);
@@ -164,7 +164,6 @@ public class Ulkoasu {
      return true;
    }
    if (infoNakyvilla) {
-     this.piirraUlkoasu();
      this.infoNakyvilla = false;
    }
    return false;

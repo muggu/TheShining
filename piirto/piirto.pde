@@ -27,8 +27,11 @@ float kolmionMuuntokerroinY = 0.15;
 float kolmionMuuntokerroinY2 = 0.08;
 float kolmionMuuntokerroinY3 = 0.22; 
 
+Ulkoasu ulkoasu; 
+
 void setup() {
-  size(600, 480);
+  this.ulkoasu = new Ulkoasu();
+  this.ulkoasu.piirraUlkoasu();
   kuva = loadImage("minionitpieni.jpg");
   imageMode(CENTER);
   noStroke();

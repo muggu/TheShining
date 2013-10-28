@@ -12,6 +12,7 @@ int palloKorva = 2;
 int tahti = 3;
 int pienennysKerroin = 1;
 
+boolean playKlikattu; 
 int leimasin;
 
 float ellipsiMuuntokerroinX = 0.50;
@@ -27,14 +28,17 @@ float kolmionMuuntokerroinY = 0.15;
 float kolmionMuuntokerroinY2 = 0.08;
 float kolmionMuuntokerroinY3 = 0.22; 
 
+Ulkoasu ulkoasu; 
+
 void setup() {
-  size(500, 500);
+  
+  this.ulkoasu = new Ulkoasu();
+
   kuva = loadImage("minionitpieni.jpg");
-  imageMode(CENTER);
   noStroke();
   background(255);
-   
-  asetaLeimasin(sydan);
+  
+  leimasin = sydan;
   
   if (leimasin == sydan){
   pieniKoko = 50;
@@ -56,7 +60,10 @@ void setup() {
   pallojenMaara = 1000; 
   pienennysKerroin = 4; 
   }
+  
   koko = suuriKoko;
+  this.ulkoasu.piirraUlkoasu();
+
 }
 
 /*
@@ -67,6 +74,7 @@ boolean kaynnissa(){
  if(pallot <= pallojenMaara){
  return true;
  }
+ playKlikattu = false;
  return false;
 }
 
@@ -105,9 +113,11 @@ leimasin = luku;
 }
 
 void piirra(){
-  x = int(random(kuva.width));
-  y = int(random(kuva.height));  
   
+  noStroke();
+  x = int(random(70,450));
+  y = int(random(70,450));  
+
   //Pienennetään kuvion kokoa ja piirretään kuvio. 
   koko = pienenee(koko);
     
@@ -118,6 +128,7 @@ void piirra(){
 
 
 void piirraSydan(){
+  
   
    //Apumuuttujia
       float sydanX1 = x + sydanMuuntokerroinX*koko; 
@@ -167,7 +178,7 @@ Kuvan piirto
 */
 void draw() {
   
-  if(kaynnissa()){
+  if(kaynnissa() && playKlikattu){
     
     piirra();
 
@@ -214,4 +225,24 @@ void draw() {
 
     }
   }
+}
+
+void mouseClicked() {
+  this.ulkoasu.klikattuSymboli(mouseX, mouseY);
+  this.ulkoasu.klikattuValokuva(mouseX, mouseY);
+  this.ulkoasu.klikattuPlay(mouseX, mouseY);
+  if(this.ulkoasu.klikattuPlay(mouseX,mouseY)){
+   playKlikattu = true; 
+  }
+  
+  if(this.ulkoasu.klikattuSymboli(mouseX, mouseY) != 0){
+  leimasin = this.ulkoasu.klikattuSymboli(mouseX, mouseY);
+  }
+}
+
+void mouseMoved() {
+  if(mouseX >= 600 && mouseY <= 100) {
+    this.ulkoasu.onkoInfonSisalla(mouseX, mouseY); 
+  }
+  
 }
