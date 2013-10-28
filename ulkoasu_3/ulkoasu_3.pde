@@ -42,12 +42,14 @@ public class Ulkoasu {
   
   
   void piirraUlkoasu(){
-   background(250);
+   background(255);
    size(750, 700);
    fill(200, 90);
    this.fontti = createFont("Courier New Bold", 20);
    textFont(fontti);
    text("Picture Editor 2.0", 70, 30);
+   fill(255,0);
+   noStroke();
    rect(30, 50, 500, 500, 10);
    piirraNapit();
    piirraValokuvat(); 

@@ -1,4 +1,5 @@
 PImage kuva;
+PImage kuva1;
 int pieniKoko;
 int suuriKoko;
 float koko;
@@ -11,7 +12,13 @@ int sydan = 1;
 int palloKorva = 2;
 int tahti = 3;
 int pienennysKerroin = 1;
+int korkeus;
+int leveys;
+float transparency;
+int alkuX = 70; //static? 
+int alkuY = 80;
 
+boolean kuvaaPiirretaan;
 boolean playKlikattu; 
 int leimasin;
 
@@ -52,18 +59,18 @@ void tarkistaLeimasin(){
   pieniKoko = 50;
   suuriKoko = 500;
   pallojenMaara = 1500;
-  pienennysKerroin = 2;
+  pienennysKerroin = 4;
   }
   
   if(leimasin == palloKorva){
-  pieniKoko = 8;
+  pieniKoko = 10;
   suuriKoko = 100;
   pallojenMaara = 2000;
   
   }
   
   if(leimasin == tahti){
-  pieniKoko = 50;
+  pieniKoko = 80;
   suuriKoko = 500;
   pallojenMaara = 1000; 
   pienennysKerroin = 4; 
@@ -78,19 +85,20 @@ boolean kaynnissa(){
  if(pallot <= pallojenMaara){
  return true;
  }
+ else{
  playKlikattu = false;
+ pallot = 0;
  return false;
 }
-
-void leimasimenValinta(int arvo){
-leimasin = arvo; 
 }
+
 
 /*
 Metodi pienentää parametrina annettua lukua riippuen sen koosta,
 ja palauttaa muutetun lukuarvon.
 */
 float pienenee(float luku){
+  
 if(luku > pieniKoko){
   if(luku < 0.3*suuriKoko){
    luku -= 0.02*pienennysKerroin; 
@@ -103,7 +111,7 @@ if(luku > pieniKoko){
     luku -=0.1*pienennysKerroin;
   }
   else{
-    luku -=0.3*pienennysKerroin;
+    luku -=0.2*pienennysKerroin;
   }
 }
 else{
@@ -112,15 +120,22 @@ else{
 return luku;
 }
 
-void asetaLeimasin(int luku){
-leimasin = luku;
-}
 
 void piirra(){
   
   noStroke();
-  x = int(random(70,450));
-  y = int(random(70,450));  
+  
+  leveys = kuva.width;
+  korkeus = kuva.height;
+
+  if(leveys > 500){
+    leveys = 500;
+  }
+  if(korkeus > 470){
+    korkeus = 470; 
+  }
+  x = int(random(alkuX, leveys));
+  y = int(random(alkuY, korkeus));  
 
   //Pienennetään kuvion kokoa ja piirretään kuvio. 
   koko = pienenee(koko);
@@ -177,14 +192,44 @@ void piirraTahti(){
   triangle(tahtiX1, y, x,tahtiY3, tahtiX2, y);
 }
 
+void piirraKuva(){
+    
+ if(mouseX >= alkuX && mouseX <= 
+  leveys && mouseY >= alkuY && mouseY <= korkeus){
+    
+  kuvaaPiirretaan = true;  
+  
+ if(transparency >= 40){
+    transparency = transparency + 0.8 ;
+  }
+  
+  if(transparency <= 255){
+    transparency = transparency + 0.2 ;
+  } 
+  
+  tint(255,255,255,transparency);
+  image(kuva, alkuX, alkuY, leveys, korkeus);
+  
+}else{
+  
+if(kuvaaPiirretaan){
+this.ulkoasu.piirraUlkoasu();
+}
+
+transparency = 0;
+kuvaaPiirretaan = false;
+
+}
+}
 /*
 Kuvan piirto
 */
 void draw() {
   
-  
+  piirraKuva();
   tarkistaLeimasin();
-  if(kaynnissa() && playKlikattu){
+  
+  if(kaynnissa() && playKlikattu && !kuvaaPiirretaan){
     
     piirra();
 
@@ -240,18 +285,20 @@ void mouseClicked() {
   this.ulkoasu.klikattuSymboli(mouseX, mouseY);
   this.ulkoasu.klikattuValokuva(mouseX, mouseY);
   this.ulkoasu.klikattuPlay(mouseX, mouseY);
-  if(this.ulkoasu.klikattuPlay(mouseX,mouseY)){
+  
+  if(this.ulkoasu.klikattuPlay(mouseX,mouseY) && !playKlikattu){
+   this.ulkoasu.piirraUlkoasu();
    playKlikattu = true; 
   }
   
-  if(this.ulkoasu.klikattuSymboli(mouseX, mouseY) != 0){
+  if(this.ulkoasu.klikattuSymboli(mouseX, mouseY) != 0 && !playKlikattu){
   leimasin = this.ulkoasu.klikattuSymboli(mouseX, mouseY);
   }
+  
 }
 
 void mouseMoved() {
   if(mouseX >= 600 && mouseY <= 100) {
     this.ulkoasu.onkoInfonSisalla(mouseX, mouseY); 
   }
-  
 }
