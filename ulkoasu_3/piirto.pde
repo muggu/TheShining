@@ -39,6 +39,14 @@ void setup() {
   background(255);
   
   leimasin = sydan;
+  tarkistaLeimasin();
+  
+  koko = suuriKoko;
+  this.ulkoasu.piirraUlkoasu();
+
+}
+
+void tarkistaLeimasin(){
   
   if (leimasin == sydan){
   pieniKoko = 50;
@@ -60,10 +68,6 @@ void setup() {
   pallojenMaara = 1000; 
   pienennysKerroin = 4; 
   }
-  
-  koko = suuriKoko;
-  this.ulkoasu.piirraUlkoasu();
-
 }
 
 /*
@@ -178,6 +182,8 @@ Kuvan piirto
 */
 void draw() {
   
+  
+  tarkistaLeimasin();
   if(kaynnissa() && playKlikattu){
     
     piirra();
@@ -224,6 +230,9 @@ void draw() {
     }  
 
     }
+  }
+  else{
+   koko = suuriKoko; 
   }
 }
 
