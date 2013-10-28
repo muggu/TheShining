@@ -1,8 +1,12 @@
 
 public class Ulkoasu {
 
- // PImage infokuva = loadImage("kysymysmerkki.png");
- // PImage lataakuva = loadImage("download.png");
+  PImage infokuva = loadImage("info.png");
+  PImage lataakuva = loadImage("cloud-download.png");
+  PImage playkuva = loadImage("play.png");
+  PImage mikkihiiri = loadImage("mikkihiiri.png");
+  PImage sydan = loadImage("sydan.png");
+  PImage tahti = loadImage("tahti.png");
   PFont fontti;
   int valittuSymboli = 1; //Symboli, jota on klikattu (highlight'aus). Alussa ylin symboli.
   int valittuValokuva = 1;
@@ -19,19 +23,21 @@ public class Ulkoasu {
   int aloitusX1 = 40;  //vasemmanpuolimmaisen valokuvan y-koordinaatti
   int marginaaliX = 10; //pikselivali valokuvaruutujen valilla.
   //play-nappi
-  int playX = 630;
+  int playX = 620;
   int playY = 470;
   int playHalkaisija = 90;
   //tallenna oma kuva -nappi
-  int tallennaX = 580;
-  int tallennaY = 620;
-  int tallennaHalkaisija = 60;
+  int tallennaX = 563;
+  int tallennaY = 560;
+  int tallennaKorkeus = 85;
+  int tallennaLeveys = 128;
   boolean klikattuPlay = false;
   //informaationappula
-  int infoX = 680;
-  int infoY = this.tallennaY;
-  int infoHalkaisija = this.tallennaHalkaisija;
+  int infoX = 710;
+  int infoY = 30;
+  int infoHalkaisija = 32;
   boolean infoNakyvilla = false;
+  PImage[] symbolit = {mikkihiiri, sydan, tahti}; 
   
   
   
@@ -56,23 +62,33 @@ public class Ulkoasu {
   void piirraNapit() {
     text("Symbols", 570, 70);
     //piirretaan symbolinapit
-    for(int i = 0; i<4; i++) {
+    for(int i = 0; i<3; i++) {
       stroke(0);
       if (this.valittuSymboli == i+1) {
         stroke(200);
       }
       rect(aloitusX, aloitusY + i*(marginaaliY + napinKorkeus), napinLeveys, napinKorkeus, 15, 2, 15, 2);
-    }
+      image(symbolit[i], aloitusX + 10, i*(marginaaliY + napinKorkeus));  
+  }
     stroke(0);
     //piirretaan play-nappi
     ellipse(playX, playY, playHalkaisija, playHalkaisija);
-   // image(img, 0, 0)
+    scale(0.75);
+    image(playkuva, (1/0.75)*(playX-playHalkaisija/2), (1/0.75)*(playY-playHalkaisija/2));
+    scale(1/0.75);
     //oman kuvan lisaaminen -nappi
-    ellipse(tallennaX, tallennaY, tallennaHalkaisija, tallennaHalkaisija);
-  //  image(lataakuva, tallennaX-tallennaHalkaisija/2, tallennaY-tallennaHalkaisija/2);
+    fill(250);
+    noStroke();
+    rect(tallennaX, tallennaY, tallennaLeveys, tallennaKorkeus, 30);
+    image(lataakuva, tallennaX, tallennaY);
     //infonappula:
+    stroke(0);
+    fill(255);
     ellipse(infoX, infoY, infoHalkaisija, infoHalkaisija);
-  //  image(infokuva, infoX-infoHalkaisija/2, infoY-infoHalkaisija/2);  
+    scale(0.5);
+    image(infokuva, infoX*2-infoHalkaisija, 2*infoY-infoHalkaisija);  
+    scale(1/0.5);
+    fill(200);
 }
   
   
@@ -156,8 +172,8 @@ public class Ulkoasu {
  
  void piirraInfoboksiNakyviin() {
   this.infoNakyvilla = true;
-  fill(20, 20, 200);
-  rect(width/4, height/4, width/2, height/2);
+  fill(230);
+  rect(width/4, height/4, width/2, height/2, 30);
  }
  
  
