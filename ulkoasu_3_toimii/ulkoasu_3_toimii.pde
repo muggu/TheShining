@@ -7,6 +7,16 @@ public class Ulkoasu {
   PImage mikkihiiri = loadImage("mikkihiiri.png");
   PImage sydan = loadImage("sydan.png");
   PImage tahti = loadImage("tahti.png");
+  PImage one = loadImage("one.png");
+  PImage two = loadImage("two.png");
+  PImage three = loadImage("three.png");
+  PImage four = loadImage("four.png");
+  PImage five = loadImage("five.png");
+  PImage onevalittu = loadImage("onekopio.png");
+  PImage twovalittu = loadImage("twokopio.png");
+  PImage threevalittu = loadImage("threekopio.png");
+  PImage fourvalittu = loadImage("fourkopio.png");
+  PImage fivevalittu = loadImage("fivekopio.png");
   PFont fontti;
   int valittuSymboli = 1; //Symboli, jota on klikattu (highlight'aus). Alussa ylin symboli.
   int valittuValokuva = 1;
@@ -43,7 +53,7 @@ public class Ulkoasu {
   int infoHalkaisija = 32;
   boolean infoNakyvilla = false;
   PImage[] symbolit = {mikkihiiri, sydan, tahti}; 
-  
+  PImage[] numerot = {one, two, three, four, five};
   
   
   void piirraUlkoasu(){
@@ -101,12 +111,12 @@ public class Ulkoasu {
   */
   void piirraValokuvat() {
     text("Image Options", aloitusX1, aloitusY1-10);
-    for(int i = 0; i < 6; i++) {
+    for(int i = 0; i < 5; i++) {
       stroke(0);
       if (this.valittuValokuva == i+1) {
         stroke(200);
       }
-      rect(aloitusX1+i*(kuvanLeveys+marginaaliX), aloitusY1, kuvanLeveys, kuvanKorkeus, 5); 
+      image(numerot[i], aloitusX1+i*(kuvanLeveys+marginaaliX), aloitusY1); 
     } 
   }
   
