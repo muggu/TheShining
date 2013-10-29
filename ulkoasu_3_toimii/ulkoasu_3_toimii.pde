@@ -54,6 +54,7 @@ public class Ulkoasu {
   boolean infoNakyvilla = false;
   PImage[] symbolit = {mikkihiiri, sydan, tahti}; 
   PImage[] numerot = {one, two, three, four, five};
+  PImage[] valittunro = {onevalittu, twovalittu, threevalittu, fourvalittu, fivevalittu};
   
   
   void piirraUlkoasu(){
@@ -114,9 +115,11 @@ public class Ulkoasu {
     for(int i = 0; i < 5; i++) {
       stroke(0);
       if (this.valittuValokuva == i+1) {
-        stroke(200);
+        image(valittunro[i], aloitusX1+i*(kuvanLeveys+marginaaliX), aloitusY1); 
       }
+      else{
       image(numerot[i], aloitusX1+i*(kuvanLeveys+marginaaliX), aloitusY1); 
+      }
     } 
   }
   
