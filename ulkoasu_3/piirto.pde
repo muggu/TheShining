@@ -1,5 +1,4 @@
 PImage kuva;
-PImage kuva1;
 int pieniKoko;
 int suuriKoko;
 float koko;
@@ -16,7 +15,7 @@ int korkeus;
 int leveys;
 float transparency;
 int alkuX = 70; //static? 
-int alkuY = 80;
+int alkuY = 90;
 
 boolean kuvaaPiirretaan;
 boolean playKlikattu; 
@@ -128,11 +127,11 @@ void piirra(){
   leveys = kuva.width;
   korkeus = kuva.height;
 
-  if(leveys > 500){
-    leveys = 500;
+  if(leveys > 470){
+    leveys = 470;
   }
-  if(korkeus > 470){
-    korkeus = 470; 
+  if(korkeus > 490){
+    korkeus = 490; 
   }
   x = int(random(alkuX, leveys));
   y = int(random(alkuY, korkeus));  
@@ -199,22 +198,19 @@ void piirraKuva(){
     
   kuvaaPiirretaan = true;  
   
- if(transparency >= 40){
-    transparency = transparency + 0.8 ;
-  }
-  
   if(transparency <= 255){
     transparency = transparency + 0.2 ;
   } 
   
+ if(transparency >= 100){
+    transparency = transparency + 1 ;
+  }
+  
+ 
   tint(255,255,255,transparency);
   image(kuva, alkuX, alkuY, leveys, korkeus);
   
 }else{
-  
-if(kuvaaPiirretaan){
-this.ulkoasu.piirraUlkoasu();
-}
 
 transparency = 0;
 kuvaaPiirretaan = false;
@@ -281,18 +277,22 @@ void draw() {
   }
 }
 
-void mouseClicked() {
+void mouseClicked() {  
+  if(!playKlikattu){
+    
   this.ulkoasu.klikattuSymboli(mouseX, mouseY);
   this.ulkoasu.klikattuValokuva(mouseX, mouseY);
   this.ulkoasu.klikattuPlay(mouseX, mouseY);
+
   
-  if(this.ulkoasu.klikattuPlay(mouseX,mouseY) && !playKlikattu){
+  if(this.ulkoasu.klikattuPlay(mouseX,mouseY)){
    this.ulkoasu.piirraUlkoasu();
    playKlikattu = true; 
-  }
-  
-  if(this.ulkoasu.klikattuSymboli(mouseX, mouseY) != 0 && !playKlikattu){
+  }  
+    
+  if(this.ulkoasu.klikattuSymboli(mouseX, mouseY) != 0){
   leimasin = this.ulkoasu.klikattuSymboli(mouseX, mouseY);
+  }
   }
   
 }
