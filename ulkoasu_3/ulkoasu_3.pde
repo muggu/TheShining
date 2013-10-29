@@ -62,7 +62,6 @@ public class Ulkoasu {
   * Luo myos Play-napin, Info-napin ja myos oman kuvan lisaamista varten napin.
   */
   void piirraNapit() {
-    text("Symbols", 570, 70);
     //piirretaan symbolinapit
     for(int i = 0; i<3; i++) {
       stroke(0);
