@@ -170,6 +170,7 @@ public class Ulkoasu {
    }
    if (infoNakyvilla) {
      this.infoNakyvilla = false;
+     this.piirraUlkoasu();
    }
    return false;
  }

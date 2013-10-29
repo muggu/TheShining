@@ -286,7 +286,7 @@ void mouseClicked() {
   int kuvanumero = this.ulkoasu.klikattuValokuva(mouseX, mouseY);
   this.ulkoasu.klikattuPlay(mouseX, mouseY);
   
-  if(kuvanumero != 0) {
+  if(kuvanumero != 0 && !playKlikattu) {
     asetaKuva(annaKuva(kuvanumero-1));
   }
   
@@ -311,10 +311,9 @@ void mouseClicked() {
 
 void mouseMoved() {
   if(!playKlikattu){
+    
   if(mouseX >= 600 && mouseY <= 100) {
     this.ulkoasu.onkoInfonSisalla(mouseX, mouseY); 
-  }else{
-    this.ulkoasu.piirraUlkoasu();
   }
   
   }

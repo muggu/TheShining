@@ -25,7 +25,7 @@ public class OmaKuva {
     if (polku != null) {
       String nimi = polku.toString();
       //kaapataan pikselit uuteen kuvaan, joka on nelio
-      PImage muokattuKuva = get(marginaaliX, marginaaliY, sivu, sivu);
+      PImage muokattuKuva = get(0, 0, sivu, sivu);
       //tallennetaan nimella
       muokattuKuva.save(nimi +".png");
     } else {
