@@ -23,7 +23,7 @@ public class Ulkoasu {
   //symbolinapit:
   int napinLeveys = 80; //symbolinapin leveys
   int napinKorkeus = 70;  //symbolinapin korkeus
-  int aloitusX = 585;  //ylimman symbolin koordinaatti x
+  int aloitusX = 610;  //ylimman symbolin koordinaatti x
   int aloitusY = 100;  //ylimman symbolin koordinaatti y
   int marginaaliY = 30;  //symbolien pikselivali
   //valokuvaboksit:
@@ -33,12 +33,12 @@ public class Ulkoasu {
   int aloitusX1 = 40;  //vasemmanpuolimmaisen valokuvan y-koordinaatti
   int marginaaliX = 10; //pikselivali valokuvaruutujen valilla.
   //play-nappi
-  int playX = 620;
-  int playY = 470;
+  int playX = 648;
+  int playY = 440;
   int playHalkaisija = 90;
   //lataa oma kuva -nappi
-  int lataaX = 563;
-  int lataaY = 560;
+  int lataaX = 585;
+  int lataaY = 510;
   int lataaKorkeus = 85;
   int lataaLeveys = 128;
   //tallenna kuva -nappi
@@ -68,7 +68,7 @@ public class Ulkoasu {
    fill(255,0);
    stroke(80);
    strokeWeight(3);
-   rect(5, 70, 540, 500, 30);
+   rect(10, 70, 540, 520, 30);
    noStroke();
    piirraNapit();
    piirraValokuvat(); 
@@ -90,7 +90,7 @@ public class Ulkoasu {
       }
    image(sydan, aloitusX + 5, 98);
    image(mikkihiiri, aloitusX,200);
-   image(tahti, aloitusX + 7, 300);  
+   image(tahti, aloitusX + 10, 300);  
   }
     stroke(0);
     //piirretaan play-nappi
