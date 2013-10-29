@@ -11,11 +11,11 @@ public class Ulkoasu {
   int valittuSymboli = 1; //Symboli, jota on klikattu (highlight'aus). Alussa ylin symboli.
   int valittuValokuva = 1;
   //symbolinapit:
-  int napinLeveys = 100; //symbolinapin leveys
-  int napinKorkeus = 60;  //symbolinapin korkeus
-  int aloitusX = 570;  //ylimman symbolin koordinaatti x
+  int napinLeveys = 80; //symbolinapin leveys
+  int napinKorkeus = 70;  //symbolinapin korkeus
+  int aloitusX = 585;  //ylimman symbolin koordinaatti x
   int aloitusY = 100;  //ylimman symbolin koordinaatti y
-  int marginaaliY = 20;  //symbolien pikselivali
+  int marginaaliY = 30;  //symbolien pikselivali
   //valokuvaboksit:
   int kuvanLeveys = 70;  //valokuvaboksien leveys
   int kuvanKorkeus = 70;  //valokuvaboksien korkeus
@@ -62,31 +62,28 @@ public class Ulkoasu {
   * Luo myos Play-napin, Info-napin ja myos oman kuvan lisaamista varten napin.
   */
   void piirraNapit() {
-    text("Symbols", 570, 70);
     //piirretaan symbolinapit
     for(int i = 0; i<3; i++) {
       stroke(0);
       if (this.valittuSymboli == i+1) {
         stroke(200);
       }
-      rect(aloitusX, aloitusY + i*(marginaaliY + napinKorkeus), napinLeveys, napinKorkeus, 15, 2, 15, 2);
-      image(symbolit[i], aloitusX + 10, i*(marginaaliY + napinKorkeus));  
+   image(sydan, aloitusX + 5, 98);
+   image(mikkihiiri, aloitusX,200);
+   image(tahti, aloitusX + 7, 300);  
   }
     stroke(0);
     //piirretaan play-nappi
-    ellipse(playX, playY, playHalkaisija, playHalkaisija);
     scale(0.75);
     image(playkuva, (1/0.75)*(playX-playHalkaisija/2), (1/0.75)*(playY-playHalkaisija/2));
     scale(1/0.75);
     //oman kuvan lisaaminen -nappi
     fill(250);
     noStroke();
-    rect(tallennaX, tallennaY, tallennaLeveys, tallennaKorkeus, 30);
     image(lataakuva, tallennaX, tallennaY);
     //infonappula:
     stroke(0);
     fill(255);
-    ellipse(infoX, infoY, infoHalkaisija, infoHalkaisija);
     scale(0.5);
     image(infokuva, infoX*2-infoHalkaisija, 2*infoY-infoHalkaisija);  
     scale(1/0.5);
@@ -174,7 +171,7 @@ public class Ulkoasu {
  void piirraInfoboksiNakyviin() {
   this.infoNakyvilla = true;
   fill(230);
-  rect(width/4, height/4, width/2, height/2, 30);
+  rect(70, 80, width/2, height/2, 30);
  }
  
  

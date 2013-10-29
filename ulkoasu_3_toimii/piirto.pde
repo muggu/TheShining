@@ -208,15 +208,13 @@ void piirraKuva(){
     transparency = transparency + 0.2 ;
   } 
   
+  
   tint(255,255,255,transparency);
   image(kuva, alkuX/2, alkuY/2, leveys, korkeus);
+  tint(255,255,255,255);
   
 }else{
   
-if(kuvaaPiirretaan){
-this.ulkoasu.piirraUlkoasu();
-}
-
 transparency = 0;
 kuvaaPiirretaan = false;
 
@@ -304,8 +302,13 @@ void mouseClicked() {
 }
 
 void mouseMoved() {
+  if(!playKlikattu){
   if(mouseX >= 600 && mouseY <= 100) {
     this.ulkoasu.onkoInfonSisalla(mouseX, mouseY); 
+  }else{
+    this.ulkoasu.piirraUlkoasu();
+  }
+  
   }
 }
 
