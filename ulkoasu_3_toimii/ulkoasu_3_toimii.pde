@@ -17,6 +17,7 @@ public class Ulkoasu {
   PImage threevalittu = loadImage("threekopio.png");
   PImage fourvalittu = loadImage("fourkopio.png");
   PImage fivevalittu = loadImage("fivekopio.png");
+  PImage save = loadImage("save.png");
   PFont fontti;
   int valittuSymboli = 1; //Symboli, jota on klikattu (highlight'aus). Alussa ylin symboli.
   int valittuValokuva = 1;
@@ -29,7 +30,7 @@ public class Ulkoasu {
   //valokuvaboksit:
   int kuvanLeveys = 70;  //valokuvaboksien leveys
   int kuvanKorkeus = 70;  //valokuvaboksien korkeus
-  int aloitusY1 = 580; //vasemmanpuolimmaisen valokuvan X-koordinaatti
+  int aloitusY1 = 610; //vasemmanpuolimmaisen valokuvan X-koordinaatti
   int aloitusX1 = 40;  //vasemmanpuolimmaisen valokuvan y-koordinaatti
   int marginaaliX = 10; //pikselivali valokuvaruutujen valilla.
   //play-nappi
@@ -42,10 +43,10 @@ public class Ulkoasu {
   int lataaKorkeus = 85;
   int lataaLeveys = 128;
   //tallenna kuva -nappi
-  int tallennaX = 600;
-  int tallennaY = 650;
-  int tallennaKorkeus = 50;
-  int tallennaLeveys = 80;
+  int tallennaX = 470;
+  int tallennaY = 610;
+  int tallennaKorkeus = 64;
+  int tallennaLeveys = 64;
   boolean klikattuPlay = false;
   //informaationappula
   int infoX = 710;
@@ -116,7 +117,7 @@ public class Ulkoasu {
   void piirraValokuvat() {
     noStroke();
     fill(230, 240, 255, 250);
-    rect(30, 580, 400, 70);
+    rect(30, 595, 400, 90);
     for(int i = 0; i < 5; i++) {
       //stroke(0);
       if (this.valittuValokuva == i+1) {
@@ -200,8 +201,7 @@ public class Ulkoasu {
  }
  
  void piirraTallenna() {
-   fill(133);
-   rect(tallennaX, tallennaY, tallennaLeveys, tallennaKorkeus);
+   image(save, tallennaX, tallennaY);
  }
  
  boolean klikattuLataa(int mouseX, int mouseY) {
