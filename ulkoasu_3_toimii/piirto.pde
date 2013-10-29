@@ -15,8 +15,8 @@ int pienennysKerroin = 1;
 int korkeus;
 int leveys;
 float transparency;
-int alkuX = 70; 
-int alkuY = 120;
+int alkuX = 70; //static? 
+int alkuY = 80;
 
 boolean kuvaaPiirretaan;
 boolean playKlikattu; 
@@ -57,6 +57,9 @@ void setup() {
   
   valokuvat[0] = kuva;
   valokuvat[1] = loadImage("mikkihiiri.png");
+  valokuvat[2] = loadImage("eevee.gif");
+  valokuvat[3] = loadImage("slowpoke.jpg");
+  valokuvat[4] = loadImage("psyduck.gif");
 
 }
 
@@ -71,7 +74,7 @@ void tarkistaLeimasin(){
   
   if(leimasin == palloKorva){
   pieniKoko = 10;
-  suuriKoko = 80;
+  suuriKoko = 100;
   pallojenMaara = 2000;
   
   }
@@ -135,17 +138,14 @@ void piirra(){
   leveys = kuva.width;
   korkeus = kuva.height;
   
-  x = int(random(0, leveys ));
-  y = int(random(0, korkeus));  
+  x = int(random(alkuX, leveys));
+  y = int(random(alkuY, korkeus));  
 
   //Pienennetään kuvion kokoa ja piirretään kuvio. 
   koko = pienenee(koko);
     
   color vari = kuva.get(x, y);
   fill(vari,255);
-  
-  x += alkuX;
-  y += alkuY;
   
 }
 
@@ -174,14 +174,15 @@ void piirraPalloKorva(){
   
       // Muunnetaan eri ellipsien x- ja y-koordinaatit kuntoon
       float ellipsiX1 = x-ellipsiMuuntokerroinX*koko; 
-      float ellipsiY1 = y+ellipsiMuuntokerroinY*koko;
+      float ellipsiY1 = y-ellipsiMuuntokerroinY*koko;
       float ellipsiX2 = x+ellipsiMuuntokerroinX*koko;
+      float ellipsiY2 = y-ellipsiMuuntokerroinY*koko;
 
-      ellipse(ellipsiX1, y, koko, koko);
+      ellipse(ellipsiX1, ellipsiY1, koko, koko);
       
-      ellipse(ellipsiX2, y, koko, koko);
+      ellipse(ellipsiX2, ellipsiY2, koko, koko);
       
-      ellipse(x, ellipsiY1, ellipsiKokokerroin*koko, ellipsiKokokerroin*koko);
+      ellipse(x, y, ellipsiKokokerroin*koko, ellipsiKokokerroin*koko);
 }
 
 void piirraTahti(){
@@ -212,7 +213,7 @@ void piirraKuva(){
   
   
   tint(255,255,255,transparency);
-  image(kuva, alkuX, alkuY, leveys, korkeus);
+  image(kuva, alkuX/2, alkuY/2, leveys, korkeus);
   tint(255,255,255,255);
   
 }else{
@@ -324,9 +325,9 @@ void mouseMoved() {
 void asetaKuva(PImage image) {
   this.kuva = image;
   
-  int sivu = 400;
-  leveys = 400;
-  korkeus = 400;
+  int sivu = 470;
+  leveys = 470;
+  korkeus = 470;
   
   //skaalataan pidemman sivun mukaan
   if (kuva.height <= kuva.width) { //vaakakuva tai nelio
