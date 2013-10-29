@@ -26,11 +26,16 @@ public class Ulkoasu {
   int playX = 620;
   int playY = 470;
   int playHalkaisija = 90;
-  //tallenna oma kuva -nappi
-  int tallennaX = 563;
-  int tallennaY = 560;
-  int tallennaKorkeus = 85;
-  int tallennaLeveys = 128;
+  //lataa oma kuva -nappi
+  int lataaX = 563;
+  int lataaY = 560;
+  int lataaKorkeus = 85;
+  int lataaLeveys = 128;
+  //tallenna kuva -nappi
+  int tallennaX = 600;
+  int tallennaY = 650;
+  int tallennaKorkeus = 50;
+  int tallennaLeveys = 80;
   boolean klikattuPlay = false;
   //informaationappula
   int infoX = 710;
@@ -53,6 +58,7 @@ public class Ulkoasu {
    rect(30, 50, 500, 500, 10);
    piirraNapit();
    piirraValokuvat(); 
+   piirraTallenna();
    
    }
   
@@ -80,7 +86,7 @@ public class Ulkoasu {
     //oman kuvan lisaaminen -nappi
     fill(250);
     noStroke();
-    image(lataakuva, tallennaX, tallennaY);
+    image(lataakuva, lataaX, lataaY);
     //infonappula:
     stroke(0);
     fill(255);
@@ -174,6 +180,38 @@ public class Ulkoasu {
   rect(70, 80, width/2, height/2, 30);
  }
  
+ void piirraTallenna() {
+   fill(133);
+   rect(tallennaX, tallennaY, tallennaLeveys, tallennaKorkeus);
+ }
+ 
+ boolean klikattuLataa(int mouseX, int mouseY) {
+   int x = mouseX;
+   int y = mouseY;
+   
+   if (y >= lataaY && y <= lataaY + lataaKorkeus) {
+     if ( x >= lataaX && x <= lataaX + lataaLeveys) {
+       println("latausnappi");
+       return true;
+     }
+   }
+   return false;
+ }
+ 
+ boolean klikattuTallenna(int mouseX, int mouseY) {
+   int x = mouseX;
+   int y = mouseY;
+   
+   if (y >= tallennaY && y <= tallennaY + tallennaKorkeus) {
+     if ( x >= tallennaX && x <= tallennaX + tallennaLeveys) {
+       println("latausnappi");
+       return true;
+     }
+   }
+   return false;
+   
+   
+ }
  
 }
  

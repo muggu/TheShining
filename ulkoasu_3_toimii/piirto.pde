@@ -299,6 +299,14 @@ void mouseClicked() {
   leimasin = this.ulkoasu.klikattuSymboli(mouseX, mouseY);
   }
   
+  if(this.ulkoasu.klikattuLataa(mouseX, mouseY) && !playKlikattu) {
+    valitseKuva();
+  }
+  
+  if(this.ulkoasu.klikattuTallenna(mouseX, mouseY) && !playKlikattu) {
+    nimeaKuva();
+  }
+  
 }
 
 void mouseMoved() {
