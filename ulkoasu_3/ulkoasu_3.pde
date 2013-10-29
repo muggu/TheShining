@@ -70,7 +70,8 @@ public class Ulkoasu {
         stroke(200);
       }
       //rect(aloitusX, aloitusY + i*(marginaaliY + napinKorkeus), napinLeveys, napinKorkeus, 15, 2, 15, 2);
-     // image(symbolit[i], aloitusX + 10, i*(marginaaliY + napinKorkeus));  
+     // image(symbolit[i], aloitusX + 10, i*(marginaaliY + napinKorkeus)); 
+    
       image(mikkihiiri, aloitusX , 98);
       image(sydan, aloitusX + 5, 200);
       image(tahti, aloitusX + 7, 300);
@@ -82,18 +83,18 @@ public class Ulkoasu {
     image(playkuva, (1/0.75)*(playX-playHalkaisija/2), (1/0.75)*(playY-playHalkaisija/2));
     scale(1/0.75);
     //oman kuvan lisaaminen -nappi
-    fill(255,255);
+    fill(250);
     noStroke();
     rect(tallennaX, tallennaY, tallennaLeveys, tallennaKorkeus, 30);
     image(lataakuva, tallennaX, tallennaY);
     //infonappula:
     stroke(0);
-    fill(255,255);
+    fill(255);
     ellipse(infoX, infoY, infoHalkaisija, infoHalkaisija);
     scale(0.5);
     image(infokuva, infoX*2-infoHalkaisija, 2*infoY-infoHalkaisija);  
     scale(1/0.5);
-    fill(255, 255);
+    fill(200);
 }
   
   
@@ -176,7 +177,7 @@ public class Ulkoasu {
  
  void piirraInfoboksiNakyviin() {
   this.infoNakyvilla = true;
-  fill(255,255);
+  fill(230);
   rect(width/4, height/4, width/2, height/2, 30);
  }
  
