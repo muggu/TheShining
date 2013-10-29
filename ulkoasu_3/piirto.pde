@@ -298,7 +298,7 @@ void mouseClicked() {
 }
 
 void mouseMoved() {
-  if(mouseX >= 600 && mouseY <= 100) {
+  if(mouseX >= 600 && mouseY <= 100 && !playKlikattu) {
     this.ulkoasu.onkoInfonSisalla(mouseX, mouseY); 
   }
 }
