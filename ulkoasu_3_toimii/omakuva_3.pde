@@ -5,9 +5,9 @@ public class OmaKuva {
   public PImage ladattuKuva;
   
   //taytyy sovittaa piirtoaluenelion sivun pituuteen ja marginaaleihin
-  int sivu = 470; //sivun pituus pikseleina
+  int sivu = 400; //sivun pituus pikseleina
   int marginaaliX = 70;
-  int marginaaliY = 80;
+  int marginaaliY = 120;
   
   PImage lataaKuva(File polku) {
     if (polku != null) {

@@ -47,15 +47,18 @@ public class Ulkoasu {
   
   
   void piirraUlkoasu(){
-   background(255);
+   background(230,240,255,250);
    size(750, 700);
    fill(200, 90);
-   this.fontti = createFont("Courier New Bold", 20);
-   textFont(fontti);
-   text("Picture Editor 2.0", 70, 30);
+   this.fontti = loadFont("otsikko.vlw");
+   fill(80);
+   textFont(fontti, 48);
+   text("Shape-O-Matic", 70, 55);
    fill(255,0);
+   stroke(80);
+   strokeWeight(3);
+   rect(5, 70, 540, 500, 30);
    noStroke();
-   rect(30, 50, 500, 500, 10);
    piirraNapit();
    piirraValokuvat(); 
    piirraTallenna();
@@ -100,7 +103,6 @@ public class Ulkoasu {
   /*Piirretaan valokuvavaihtoehdot alareunaan. 
   */
   void piirraValokuvat() {
-    text("Image Options", aloitusX1, aloitusY1-10);
     for(int i = 0; i < 6; i++) {
       stroke(0);
       if (this.valittuValokuva == i+1) {
