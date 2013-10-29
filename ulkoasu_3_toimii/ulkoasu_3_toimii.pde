@@ -195,9 +195,28 @@ public class Ulkoasu {
  }
  
  void piirraInfoboksiNakyviin() {
+  this.piirraUlkoasu();
   this.infoNakyvilla = true;
-  fill(230);
-  rect(70, 80, width/2, height/2, 30);
+  textAlign(CENTER);
+  fill(80);
+  
+  textFont(fontti,32);
+  text("Welcome to Shape-O-Matic!", 275, 130);
+  textFont(fontti,22);
+  text("With this new picture editor you can", 275, 185);
+  text("modify your pictures with different shapes!", 275, 210);
+  text("First, choose the shape that will form the image.", 275, 235);
+  text("Then, choose the number of an image, and click play!", 275, 260);
+  text("When the program is running, you're not able", 275, 285);
+  text("to change the shape or image.", 275, 310);
+  text("You can also upload your own pictures", 275, 335);
+  text("(best result with resolution of 400x400).", 275, 360);
+  text("After the creating process is finished,",275, 385);
+  text("you can save your unique piece of art.",275, 410);
+  text("'Art is not what you see, but what you make others see.'", 275, 480);
+  textAlign(RIGHT);
+  text("- Edgar Degas", 450, 510);
+  textAlign(LEFT);
  }
  
  void piirraTallenna() {
