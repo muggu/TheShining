@@ -114,12 +114,8 @@ public class Ulkoasu {
   /*Piirretaan valokuvavaihtoehdot alareunaan. 
   */
   void piirraValokuvat() {
-<<<<<<< HEAD
-    for(int i = 0; i < 6; i++) {
-=======
     text("Image Options", aloitusX1, aloitusY1-10);
     for(int i = 0; i < 5; i++) {
->>>>>>> c5648bb83dfd2b2fcb1477ac9e40912ec2164eeb
       stroke(0);
       if (this.valittuValokuva == i+1) {
         image(valittunro[i], aloitusX1+i*(kuvanLeveys+marginaaliX), aloitusY1); 
