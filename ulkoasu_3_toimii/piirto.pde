@@ -15,8 +15,8 @@ int pienennysKerroin = 1;
 int korkeus;
 int leveys;
 float transparency;
-int alkuX = 70; //static? 
-int alkuY = 80;
+int alkuX = 70;
+int alkuY = 120;
 
 boolean kuvaaPiirretaan;
 boolean playKlikattu; 
@@ -74,7 +74,7 @@ void tarkistaLeimasin(){
   
   if(leimasin == palloKorva){
   pieniKoko = 10;
-  suuriKoko = 100;
+  suuriKoko = 80;
   pallojenMaara = 2000;
   
   }
@@ -138,14 +138,17 @@ void piirra(){
   leveys = kuva.width;
   korkeus = kuva.height;
   
-  x = int(random(alkuX, leveys));
-  y = int(random(alkuY, korkeus));  
+  x = int(random(0, leveys));
+  y = int(random(0, korkeus));  
 
   //Pienennetään kuvion kokoa ja piirretään kuvio. 
   koko = pienenee(koko);
     
   color vari = kuva.get(x, y);
   fill(vari,255);
+  
+  x += alkuX;
+  y += alkuY;
   
 }
 
@@ -174,15 +177,14 @@ void piirraPalloKorva(){
   
       // Muunnetaan eri ellipsien x- ja y-koordinaatit kuntoon
       float ellipsiX1 = x-ellipsiMuuntokerroinX*koko; 
-      float ellipsiY1 = y-ellipsiMuuntokerroinY*koko;
+      float ellipsiY1 = y+ellipsiMuuntokerroinY*koko;
       float ellipsiX2 = x+ellipsiMuuntokerroinX*koko;
-      float ellipsiY2 = y-ellipsiMuuntokerroinY*koko;
 
-      ellipse(ellipsiX1, ellipsiY1, koko, koko);
+      ellipse(ellipsiX1, y, koko, koko);
       
-      ellipse(ellipsiX2, ellipsiY2, koko, koko);
+      ellipse(ellipsiX2, y, koko, koko);
       
-      ellipse(x, y, ellipsiKokokerroin*koko, ellipsiKokokerroin*koko);
+      ellipse(x, ellipsiY1, ellipsiKokokerroin*koko, ellipsiKokokerroin*koko);
 }
 
 void piirraTahti(){
@@ -213,7 +215,7 @@ void piirraKuva(){
   
   
   tint(255,255,255,transparency);
-  image(kuva, alkuX/2, alkuY/2, leveys, korkeus);
+  image(kuva, alkuX, alkuY, leveys, korkeus);
   tint(255,255,255,255);
   
 }else{
@@ -286,13 +288,15 @@ void draw() {
 
 void mouseClicked() {
   this.ulkoasu.klikattuSymboli(mouseX, mouseY);
-  int kuvanumero = this.ulkoasu.klikattuValokuva(mouseX, mouseY);
   this.ulkoasu.klikattuPlay(mouseX, mouseY);
+
+  if(!playKlikattu){
+  int kuvanumero = this.ulkoasu.klikattuValokuva(mouseX, mouseY);
   
-  if(kuvanumero != 0 && !playKlikattu) {
+  if(kuvanumero != 0) {
     asetaKuva(annaKuva(kuvanumero-1));
   }
-  
+  }  
   if(this.ulkoasu.klikattuPlay(mouseX,mouseY) && !playKlikattu){
    this.ulkoasu.piirraUlkoasu();
    playKlikattu = true; 
@@ -325,9 +329,9 @@ void mouseMoved() {
 void asetaKuva(PImage image) {
   this.kuva = image;
   
-  int sivu = 470;
-  leveys = 470;
-  korkeus = 470;
+  int sivu = 400;
+  leveys = 400;
+  korkeus = 400;
   
   //skaalataan pidemman sivun mukaan
   if (kuva.height <= kuva.width) { //vaakakuva tai nelio
