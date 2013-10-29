@@ -11,11 +11,11 @@ public class Ulkoasu {
   int valittuSymboli = 1; //Symboli, jota on klikattu (highlight'aus). Alussa ylin symboli.
   int valittuValokuva = 1;
   //symbolinapit:
-  int napinLeveys = 100; //symbolinapin leveys
-  int napinKorkeus = 60;  //symbolinapin korkeus
-  int aloitusX = 570;  //ylimman symbolin koordinaatti x
+  int napinLeveys = 80; //symbolinapin leveys
+  int napinKorkeus = 70;  //symbolinapin korkeus
+  int aloitusX = 585;  //ylimman symbolin koordinaatti x
   int aloitusY = 100;  //ylimman symbolin koordinaatti y
-  int marginaaliY = 20;  //symbolien pikselivali
+  int marginaaliY = 30;  //symbolien pikselivali
   //valokuvaboksit:
   int kuvanLeveys = 70;  //valokuvaboksien leveys
   int kuvanKorkeus = 70;  //valokuvaboksien korkeus
@@ -69,8 +69,11 @@ public class Ulkoasu {
       if (this.valittuSymboli == i+1) {
         stroke(200);
       }
-      rect(aloitusX, aloitusY + i*(marginaaliY + napinKorkeus), napinLeveys, napinKorkeus, 15, 2, 15, 2);
-      image(symbolit[i], aloitusX + 10, i*(marginaaliY + napinKorkeus));  
+      //rect(aloitusX, aloitusY + i*(marginaaliY + napinKorkeus), napinLeveys, napinKorkeus, 15, 2, 15, 2);
+     // image(symbolit[i], aloitusX + 10, i*(marginaaliY + napinKorkeus));  
+      image(mikkihiiri, aloitusX , 98);
+      image(sydan, aloitusX + 5, 200);
+      image(tahti, aloitusX + 7, 300);
   }
     stroke(0);
     //piirretaan play-nappi
