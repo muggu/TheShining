@@ -7,6 +7,16 @@ public class Ulkoasu {
   PImage mikkihiiri = loadImage("mikkihiiri.png");
   PImage sydan = loadImage("sydan.png");
   PImage tahti = loadImage("tahti.png");
+  PImage one = loadImage("one.png");
+  PImage two = loadImage("two.png");
+  PImage three = loadImage("three.png");
+  PImage four = loadImage("four.png");
+  PImage five = loadImage("five.png");
+  PImage onevalittu = loadImage("onekopio.png");
+  PImage twovalittu = loadImage("twokopio.png");
+  PImage threevalittu = loadImage("threekopio.png");
+  PImage fourvalittu = loadImage("fourkopio.png");
+  PImage fivevalittu = loadImage("fivekopio.png");
   PFont fontti;
   int valittuSymboli = 1; //Symboli, jota on klikattu (highlight'aus). Alussa ylin symboli.
   int valittuValokuva = 1;
@@ -43,7 +53,8 @@ public class Ulkoasu {
   int infoHalkaisija = 32;
   boolean infoNakyvilla = false;
   PImage[] symbolit = {mikkihiiri, sydan, tahti}; 
-  
+  PImage[] numerot = {one, two, three, four, five};
+  PImage[] valittunro = {onevalittu, twovalittu, threevalittu, fourvalittu, fivevalittu};
   
   
   void piirraUlkoasu(){
@@ -103,12 +114,19 @@ public class Ulkoasu {
   /*Piirretaan valokuvavaihtoehdot alareunaan. 
   */
   void piirraValokuvat() {
+<<<<<<< HEAD
     for(int i = 0; i < 6; i++) {
+=======
+    text("Image Options", aloitusX1, aloitusY1-10);
+    for(int i = 0; i < 5; i++) {
+>>>>>>> c5648bb83dfd2b2fcb1477ac9e40912ec2164eeb
       stroke(0);
       if (this.valittuValokuva == i+1) {
-        stroke(200);
+        image(valittunro[i], aloitusX1+i*(kuvanLeveys+marginaaliX), aloitusY1); 
       }
-      rect(aloitusX1+i*(kuvanLeveys+marginaaliX), aloitusY1, kuvanLeveys, kuvanKorkeus, 5); 
+      else{
+      image(numerot[i], aloitusX1+i*(kuvanLeveys+marginaaliX), aloitusY1); 
+      }
     } 
   }
   
