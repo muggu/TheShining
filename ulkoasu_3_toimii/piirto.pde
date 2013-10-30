@@ -1,4 +1,5 @@
 PImage kuva;
+PImage kuva1;
 int pieniKoko;
 int suuriKoko;
 float koko;
@@ -14,8 +15,8 @@ int pienennysKerroin = 1;
 int korkeus;
 int leveys;
 float transparency;
-int alkuX = 70; //static? 
-int alkuY = 90;
+int alkuX = 70;
+int alkuY = 120;
 
 boolean kuvaaPiirretaan;
 boolean playKlikattu; 
@@ -35,12 +36,16 @@ float kolmionMuuntokerroinY2 = 0.08;
 float kolmionMuuntokerroinY3 = 0.22; 
 
 Ulkoasu ulkoasu; 
+OmaKuva omakuva;
+PImage[] valokuvat = new PImage[6];
 
 void setup() {
   
   this.ulkoasu = new Ulkoasu();
+  this.omakuva = new OmaKuva();
 
-  kuva = loadImage("minionitpieni.jpg");
+  kuva = loadImage("minionitpieni2.jpg");
+  asetaKuva(kuva);
   noStroke();
   background(255);
   
@@ -49,6 +54,12 @@ void setup() {
   
   koko = suuriKoko;
   this.ulkoasu.piirraUlkoasu();
+  
+  valokuvat[0] = kuva;
+  valokuvat[1] = loadImage("mikkihiiri.png");
+  valokuvat[2] = loadImage("eevee.gif");
+  valokuvat[3] = loadImage("slowpoke.jpg");
+  valokuvat[4] = loadImage("psyduck.gif");
 
 }
 
@@ -63,7 +74,7 @@ void tarkistaLeimasin(){
   
   if(leimasin == palloKorva){
   pieniKoko = 10;
-  suuriKoko = 100;
+  suuriKoko = 80;
   pallojenMaara = 2000;
   
   }
@@ -126,21 +137,18 @@ void piirra(){
   
   leveys = kuva.width;
   korkeus = kuva.height;
-
-  if(leveys > 470){
-    leveys = 470;
-  }
-  if(korkeus > 490){
-    korkeus = 490; 
-  }
-  x = int(random(alkuX, leveys));
-  y = int(random(alkuY, korkeus));  
+  
+  x = int(random(0, leveys));
+  y = int(random(0, korkeus));  
 
   //Pienennetään kuvion kokoa ja piirretään kuvio. 
   koko = pienenee(koko);
     
   color vari = kuva.get(x, y);
   fill(vari,255);
+  
+  x += alkuX;
+  y += alkuY;
   
 }
 
@@ -169,15 +177,14 @@ void piirraPalloKorva(){
   
       // Muunnetaan eri ellipsien x- ja y-koordinaatit kuntoon
       float ellipsiX1 = x-ellipsiMuuntokerroinX*koko; 
-      float ellipsiY1 = y-ellipsiMuuntokerroinY*koko;
+      float ellipsiY1 = y+ellipsiMuuntokerroinY*koko;
       float ellipsiX2 = x+ellipsiMuuntokerroinX*koko;
-      float ellipsiY2 = y-ellipsiMuuntokerroinY*koko;
 
-      ellipse(ellipsiX1, ellipsiY1, koko, koko);
+      ellipse(ellipsiX1, y, koko, koko);
       
-      ellipse(ellipsiX2, ellipsiY2, koko, koko);
+      ellipse(ellipsiX2, y, koko, koko);
       
-      ellipse(x, y, ellipsiKokokerroin*koko, ellipsiKokokerroin*koko);
+      ellipse(x, ellipsiY1, ellipsiKokokerroin*koko, ellipsiKokokerroin*koko);
 }
 
 void piirraTahti(){
@@ -198,20 +205,21 @@ void piirraKuva(){
     
   kuvaaPiirretaan = true;  
   
+ if(transparency >= 40){
+    transparency = transparency + 0.8 ;
+  }
+  
   if(transparency <= 255){
     transparency = transparency + 0.2 ;
   } 
   
- if(transparency >= 100){
-    transparency = transparency + 1 ;
-  }
   
- 
   tint(255,255,255,transparency);
   image(kuva, alkuX, alkuY, leveys, korkeus);
+  tint(255,255,255,255);
   
 }else{
-
+  
 transparency = 0;
 kuvaaPiirretaan = false;
 
@@ -275,30 +283,93 @@ void draw() {
   else{
    koko = suuriKoko; 
   }
+  
 }
 
-void mouseClicked() {  
-  if(!playKlikattu){
-    
+void mouseClicked() {
   this.ulkoasu.klikattuSymboli(mouseX, mouseY);
-  this.ulkoasu.klikattuValokuva(mouseX, mouseY);
   this.ulkoasu.klikattuPlay(mouseX, mouseY);
 
+  if(!playKlikattu){
+  int kuvanumero = this.ulkoasu.klikattuValokuva(mouseX, mouseY);
   
-  if(this.ulkoasu.klikattuPlay(mouseX,mouseY)){
+  if(kuvanumero != 0) {
+    asetaKuva(annaKuva(kuvanumero-1));
+  }
+  }  
+  if(this.ulkoasu.klikattuPlay(mouseX,mouseY) && !playKlikattu){
    this.ulkoasu.piirraUlkoasu();
    playKlikattu = true; 
-  }  
-    
-  if(this.ulkoasu.klikattuSymboli(mouseX, mouseY) != 0){
+  }
+  
+  if(this.ulkoasu.klikattuSymboli(mouseX, mouseY) != 0 && !playKlikattu){
   leimasin = this.ulkoasu.klikattuSymboli(mouseX, mouseY);
   }
+  
+  if(this.ulkoasu.klikattuLataa(mouseX, mouseY) && !playKlikattu) {
+    valitseKuva();
+  }
+  
+  if(this.ulkoasu.klikattuTallenna(mouseX, mouseY) && !playKlikattu) {
+    nimeaKuva();
   }
   
 }
 
 void mouseMoved() {
-  if(mouseX >= 600 && mouseY <= 100 && !playKlikattu) {
+  if(!playKlikattu){
+    
+  if(mouseX >= 600 && mouseY <= 100) {
     this.ulkoasu.onkoInfonSisalla(mouseX, mouseY); 
   }
+  
+  }
 }
+
+void asetaKuva(PImage image) {
+  this.kuva = image;
+  
+  int sivu = 400;
+  leveys = 400;
+  korkeus = 400;
+  
+  //skaalataan pidemman sivun mukaan
+  if (kuva.height <= kuva.width) { //vaakakuva tai nelio
+    float kerroin = kuva.height / kuva.width;
+    korkeus = int(sivu*kerroin);
+    kuva.resize(sivu, korkeus);
+  }
+  else { //pystykuva
+    float kerroin = kuva.width / kuva.height;
+    leveys = int(sivu*kerroin);
+    kuva.resize(leveys, sivu);
+  }
+  
+}
+  
+PImage annaKuva(int kuvanumero) {
+  return valokuvat[kuvanumero];
+}
+
+  //OMAKUVA-LUOKAN APUMETODIT
+  
+  //kutsuu lataaOmaKuva-metodia
+  //(eli tata kutsutaan, kun nappia painetaan)
+  void valitseKuva() {
+    selectInput("Valitse kuvatiedosto (.jpg, .png, .tif tai .tga):", "lataaOmaKuva");
+  }
+  
+  void lataaOmaKuva(File polku) {
+    PImage ladattu = this.omakuva.lataaKuva(polku);
+    this.asetaKuva(ladattu);
+  }
+  
+  //kutsuu tallennaOmaKuva-metodia
+  //(eli tata kutsutaan, kun nappia painetaan)
+  void nimeaKuva() {
+    selectInput("Tallenna kuva nimella (ei tiedostopaatetta):", "tallennaOmaKuva");
+  }
+  
+  void tallennaOmaKuva(File polku) {
+    this.omakuva.tallennaKuva(polku);
+  }

@@ -7,30 +7,46 @@ public class Ulkoasu {
   PImage mikkihiiri = loadImage("mikkihiiri.png");
   PImage sydan = loadImage("sydan.png");
   PImage tahti = loadImage("tahti.png");
+  PImage one = loadImage("one.png");
+  PImage two = loadImage("two.png");
+  PImage three = loadImage("three.png");
+  PImage four = loadImage("four.png");
+  PImage five = loadImage("five.png");
+  PImage onevalittu = loadImage("onekopio.png");
+  PImage twovalittu = loadImage("twokopio.png");
+  PImage threevalittu = loadImage("threekopio.png");
+  PImage fourvalittu = loadImage("fourkopio.png");
+  PImage fivevalittu = loadImage("fivekopio.png");
+  PImage save = loadImage("save.png");
   PFont fontti;
   int valittuSymboli = 1; //Symboli, jota on klikattu (highlight'aus). Alussa ylin symboli.
   int valittuValokuva = 1;
   //symbolinapit:
   int napinLeveys = 80; //symbolinapin leveys
   int napinKorkeus = 70;  //symbolinapin korkeus
-  int aloitusX = 585;  //ylimman symbolin koordinaatti x
+  int aloitusX = 610;  //ylimman symbolin koordinaatti x
   int aloitusY = 100;  //ylimman symbolin koordinaatti y
   int marginaaliY = 30;  //symbolien pikselivali
   //valokuvaboksit:
   int kuvanLeveys = 70;  //valokuvaboksien leveys
   int kuvanKorkeus = 70;  //valokuvaboksien korkeus
-  int aloitusY1 = 580; //vasemmanpuolimmaisen valokuvan X-koordinaatti
+  int aloitusY1 = 610; //vasemmanpuolimmaisen valokuvan X-koordinaatti
   int aloitusX1 = 40;  //vasemmanpuolimmaisen valokuvan y-koordinaatti
   int marginaaliX = 10; //pikselivali valokuvaruutujen valilla.
   //play-nappi
-  int playX = 620;
-  int playY = 470;
+  int playX = 648;
+  int playY = 440;
   int playHalkaisija = 90;
-  //tallenna oma kuva -nappi
-  int tallennaX = 563;
-  int tallennaY = 560;
-  int tallennaKorkeus = 85;
-  int tallennaLeveys = 128;
+  //lataa oma kuva -nappi
+  int lataaX = 585;
+  int lataaY = 510;
+  int lataaKorkeus = 85;
+  int lataaLeveys = 128;
+  //tallenna kuva -nappi
+  int tallennaX = 470;
+  int tallennaY = 610;
+  int tallennaKorkeus = 64;
+  int tallennaLeveys = 64;
   boolean klikattuPlay = false;
   //informaationappula
   int infoX = 710;
@@ -38,21 +54,26 @@ public class Ulkoasu {
   int infoHalkaisija = 32;
   boolean infoNakyvilla = false;
   PImage[] symbolit = {mikkihiiri, sydan, tahti}; 
-  
+  PImage[] numerot = {one, two, three, four, five};
+  PImage[] valittunro = {onevalittu, twovalittu, threevalittu, fourvalittu, fivevalittu};
   
   
   void piirraUlkoasu(){
-   background(255);
+   background(230, 240, 255, 250);
    size(750, 700);
    fill(200, 90);
-   this.fontti = createFont("Courier New Bold", 20);
-   textFont(fontti);
-   text("Picture Editor 2.0", 70, 30);
+   this.fontti = loadFont("otsikko.vlw");
+   fill(80);
+   textFont(fontti,48);
+   text("Shape-O-Matic", 70, 55);
    fill(255,0);
+   stroke(80);
+   strokeWeight(3);
+   rect(10, 70, 540, 520, 30);
    noStroke();
-   rect(30, 50, 500, 500, 10);
    piirraNapit();
    piirraValokuvat(); 
+   piirraTallenna();
    
    }
   
@@ -68,28 +89,22 @@ public class Ulkoasu {
       if (this.valittuSymboli == i+1) {
         stroke(200);
       }
-      //rect(aloitusX, aloitusY + i*(marginaaliY + napinKorkeus), napinLeveys, napinKorkeus, 15, 2, 15, 2);
-     // image(symbolit[i], aloitusX + 10, i*(marginaaliY + napinKorkeus)); 
-    
-      image(mikkihiiri, aloitusX , 98);
-      image(sydan, aloitusX + 5, 200);
-      image(tahti, aloitusX + 7, 300);
+   image(sydan, aloitusX + 5, 98);
+   image(mikkihiiri, aloitusX,200);
+   image(tahti, aloitusX + 10, 300);  
   }
     stroke(0);
     //piirretaan play-nappi
-    ellipse(playX, playY, playHalkaisija, playHalkaisija);
     scale(0.75);
     image(playkuva, (1/0.75)*(playX-playHalkaisija/2), (1/0.75)*(playY-playHalkaisija/2));
     scale(1/0.75);
     //oman kuvan lisaaminen -nappi
     fill(250);
     noStroke();
-    rect(tallennaX, tallennaY, tallennaLeveys, tallennaKorkeus, 30);
-    image(lataakuva, tallennaX, tallennaY);
+    image(lataakuva, lataaX, lataaY);
     //infonappula:
     stroke(0);
     fill(255);
-    ellipse(infoX, infoY, infoHalkaisija, infoHalkaisija);
     scale(0.5);
     image(infokuva, infoX*2-infoHalkaisija, 2*infoY-infoHalkaisija);  
     scale(1/0.5);
@@ -100,13 +115,17 @@ public class Ulkoasu {
   /*Piirretaan valokuvavaihtoehdot alareunaan. 
   */
   void piirraValokuvat() {
-    text("Image Options", aloitusX1, aloitusY1-10);
-    for(int i = 0; i < 6; i++) {
-      stroke(0);
+    noStroke();
+    fill(230, 240, 255, 250);
+    rect(30, 595, 400, 90);
+    for(int i = 0; i < 5; i++) {
+      //stroke(0);
       if (this.valittuValokuva == i+1) {
-        stroke(200);
+        image(valittunro[i], aloitusX1+i*(kuvanLeveys+marginaaliX), aloitusY1); 
       }
-      rect(aloitusX1+i*(kuvanLeveys+marginaaliX), aloitusY1, kuvanLeveys, kuvanKorkeus, 5); 
+      else{
+        image(numerot[i], aloitusX1+i*(kuvanLeveys+marginaaliX), aloitusY1); 
+      }
     } 
   }
   
@@ -170,16 +189,67 @@ public class Ulkoasu {
    }
    if (infoNakyvilla) {
      this.infoNakyvilla = false;
+     this.piirraUlkoasu();
    }
    return false;
  }
  
  void piirraInfoboksiNakyviin() {
+  this.piirraUlkoasu();
   this.infoNakyvilla = true;
-  fill(230);
-  rect(width/4, height/4, width/2, height/2, 30);
+  textAlign(CENTER);
+  fill(80);
+  
+  textFont(fontti,32);
+  text("Welcome to Shape-O-Matic!", 275, 130);
+  textFont(fontti,22);
+  text("With this new picture editor you can", 275, 185);
+  text("modify your pictures with different shapes!", 275, 210);
+  text("First, choose the shape that will form the image.", 275, 235);
+  text("Then, choose the number of an image, and click play!", 275, 260);
+  text("When the program is running, you're not able", 275, 285);
+  text("to change the shape or image.", 275, 310);
+  text("You can also upload your own pictures", 275, 335);
+  text("(best result with resolution of 400x400).", 275, 360);
+  text("After the creating process is finished,",275, 385);
+  text("you can save your unique piece of art.",275, 410);
+  text("'Art is not what you see, but what you make others see.'", 275, 480);
+  textAlign(RIGHT);
+  text("- Edgar Degas", 450, 510);
+  textAlign(LEFT);
  }
  
+ void piirraTallenna() {
+   image(save, tallennaX, tallennaY);
+ }
+ 
+ boolean klikattuLataa(int mouseX, int mouseY) {
+   int x = mouseX;
+   int y = mouseY;
+   
+   if (y >= lataaY && y <= lataaY + lataaKorkeus) {
+     if ( x >= lataaX && x <= lataaX + lataaLeveys) {
+       println("latausnappi");
+       return true;
+     }
+   }
+   return false;
+ }
+ 
+ boolean klikattuTallenna(int mouseX, int mouseY) {
+   int x = mouseX;
+   int y = mouseY;
+   
+   if (y >= tallennaY && y <= tallennaY + tallennaKorkeus) {
+     if ( x >= tallennaX && x <= tallennaX + tallennaLeveys) {
+       println("latausnappi");
+       return true;
+     }
+   }
+   return false;
+   
+   
+ }
  
 }
  
