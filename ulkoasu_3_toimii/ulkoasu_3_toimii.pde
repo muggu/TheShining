@@ -1,4 +1,6 @@
-
+/**Ulkoasuluokka piirtaa Shape-O-Maticin ulkoasun, kuten muuttuvat napit ja 
+*valokuvavaihtoehdot
+*/
 public class Ulkoasu {
 
   PImage infokuva = loadImage("info.png");
@@ -118,7 +120,7 @@ public class Ulkoasu {
   
     stroke(0);
     //piirretaan play-nappi
-    scale(0.75);
+    scale(0.75); //pienennetaan play-kuvaa
     image(playkuva, (1/0.75)*(playX-playHalkaisija/2), (1/0.75)*(playY-playHalkaisija/2));
     scale(1/0.75);
     //oman kuvan lisaaminen -nappi
@@ -126,7 +128,6 @@ public class Ulkoasu {
     tint(150);
     image(lataakuva, lataaX+5, lataaY+5);
     noTint();
-      
     fill(250);
     noStroke();
     image(lataakuva, lataaX, lataaY);
@@ -220,6 +221,9 @@ public class Ulkoasu {
    return false;
  }
  
+ /**Piirtaa infoboksin, jossa lukee ohjelman kaytto-ohjeet.
+ *
+ */
  void piirraInfoboksiNakyviin() {
   this.piirraUlkoasu();
   this.infoNakyvilla = true;
@@ -245,10 +249,12 @@ public class Ulkoasu {
   textAlign(LEFT);
  }
  
+ //Piirtaa tallennusnapin
  void piirraTallenna() {
    image(save, tallennaX, tallennaY);
  }
  
+ //tarkastelee, onko klikattu lataanappia
  boolean klikattuLataa(int mouseX, int mouseY) {
    int x = mouseX;
    int y = mouseY;
@@ -262,6 +268,7 @@ public class Ulkoasu {
    return false;
  }
  
+ //tarkistaa onko klikattu tallennanappia
  boolean klikattuTallenna(int mouseX, int mouseY) {
    int x = mouseX;
    int y = mouseY;

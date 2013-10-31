@@ -1,3 +1,8 @@
+/**Shape-O-Maticin paaluokka, jossa on hallitaan ohjelman logiikkaa.
+*
+*/
+
+
 PImage kuva;
 PImage kuva1;
 int pieniKoko;
@@ -23,7 +28,7 @@ boolean playKlikattu;
 boolean pauseKlikattu;
 int leimasin;
 
-float ellipsiMuuntokerroinX = 0.50;
+float ellipsiMuuntokerroinX = 0.50; //kuinka paljon mikkihiirenpaakuvio pienenee
 float ellipsiMuuntokerroinY = 0.60;
 float ellipsiKokokerroin = 1.6;
 
@@ -38,13 +43,16 @@ float kolmionMuuntokerroinY3 = 0.22;
 
 Ulkoasu ulkoasu; 
 OmaKuva omakuva;
+
 PImage[] valokuvat = new PImage[6];
+
 
 void setup() {
   
   this.ulkoasu = new Ulkoasu();
   this.omakuva = new OmaKuva();
 
+  pauseKlikattu = false;
   kuva = loadImage("minionitpieni2.jpg");
   asetaKuva(kuva);
   noStroke();
@@ -64,6 +72,7 @@ void setup() {
 
 }
 
+//muokkaa leimasimen kokoa yms riippuen mika symboli kaytossa
 void tarkistaLeimasin(){
   
   if (leimasin == sydan){
@@ -131,7 +140,9 @@ else{
 return luku;
 }
 
-
+/** Piirtaa valokuvan leimasimia kayttamalla. 
+* Leimasimen koko pienenee ja maara kasvaa.
+*/
 void piirra(){
   
   noStroke();
@@ -199,6 +210,8 @@ void piirraTahti(){
   triangle(tahtiX1, y, x,tahtiY3, tahtiX2, y);
 }
 
+
+//Alkuperainen valokuva esiin.
 void piirraKuva(){
     
  if(mouseX >= alkuX && mouseX <= 
@@ -233,7 +246,7 @@ void draw() {
   piirraKuva();
   tarkistaLeimasin();
   
-  if(kaynnissa() && playKlikattu && !kuvaaPiirretaan){
+  if(kaynnissa() && playKlikattu && !kuvaaPiirretaan && !pauseKlikattu){
     
     piirra();
 
@@ -280,6 +293,8 @@ void draw() {
 
     }
   }
+  
+  
   /*if(kaynnissa() && pauseKlikattu && kuvaaPiirretaan){
     !playKlikattu;
   }*/
@@ -290,19 +305,24 @@ void draw() {
 }
 
 void mouseClicked() {
+  
+  if(this.ulkoasu.klikattuPlay(mouseX, mouseY) && kaynnissa() && !pauseKlikattu && playKlikattu) { 
+     pauseKlikattu = true;
+     println("pause " + pauseKlikattu);
+  }
 
   if(!playKlikattu){
-  int kuvanumero = this.ulkoasu.klikattuValokuva(mouseX, mouseY);
-  
-  if(kuvanumero != 0) {
-    asetaKuva(annaKuva(kuvanumero-1));
-  }
+    int kuvanumero = this.ulkoasu.klikattuValokuva(mouseX, mouseY);
+      if(kuvanumero != 0) {
+          asetaKuva(annaKuva(kuvanumero-1));
+      }
   }  
+  
   if(this.ulkoasu.klikattuPlay(mouseX,mouseY) && !playKlikattu){
    this.ulkoasu.piirraUlkoasu();
    playKlikattu = true; 
   }
-  
+    
   if(this.ulkoasu.klikattuSymboli(mouseX, mouseY) != 0 && !playKlikattu){
   leimasin = this.ulkoasu.klikattuSymboli(mouseX, mouseY);
   this.ulkoasu.piirraUlkoasu();
