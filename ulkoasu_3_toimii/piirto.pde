@@ -331,7 +331,9 @@ void mouseClicked() {
   if(!playKlikattu){
     int kuvanumero = this.ulkoasu.klikattuValokuva(mouseX, mouseY);
       if(kuvanumero != 0) {
-        this.ulkoasu.piirraUlkoasu();
+        if(pauseKlikattu){
+         this.ulkoasu.piirraUlkoasu(); 
+        }
           asetaKuva(annaKuva(kuvanumero-1));
           tarkistaLeimasin();
           koko = suuriKoko;
