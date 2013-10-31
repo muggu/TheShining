@@ -246,10 +246,13 @@ void draw() {
   piirraKuva();
   tarkistaLeimasin();
   
+  if(pauseKlikattu){
+   playKlikattu = false;
+  }
+  
   if(kaynnissa() && playKlikattu && !kuvaaPiirretaan && !pauseKlikattu){
     
     piirra();
-
     //Sydän
     if(leimasin == sydan){
      piirraSydan();
@@ -293,35 +296,39 @@ void draw() {
 
     }
   }
-  
-  
-  /*if(kaynnissa() && pauseKlikattu && kuvaaPiirretaan){
-    !playKlikattu;
-  }*/
-  else{
-   koko = suuriKoko; 
+  if(kuvaaPiirretaan){
+  koko = suuriKoko;
   }
-  
 }
 
 void mouseClicked() {
+   
+  if(this.ulkoasu.klikattuPlay(mouseX,mouseY)){
+    
+   if(!playKlikattu && !pauseKlikattu){
+   playKlikattu = true;
+ }  
   
-  if(this.ulkoasu.klikattuPlay(mouseX, mouseY) && kaynnissa() && !pauseKlikattu && playKlikattu) { 
-     pauseKlikattu = true;
-     println("pause " + pauseKlikattu);
-  }
-
+   if(playKlikattu&&!pauseKlikattu){   
+   pauseKlikattu = true;
+   }
+   if(!playKlikattu && pauseKlikattu){     
+   playKlikattu = true;
+   pauseKlikattu = false; 
+   }
+   }
+   
+   
+   
+   
+    
+  
   if(!playKlikattu){
     int kuvanumero = this.ulkoasu.klikattuValokuva(mouseX, mouseY);
       if(kuvanumero != 0) {
           asetaKuva(annaKuva(kuvanumero-1));
       }
   }  
-  
-  if(this.ulkoasu.klikattuPlay(mouseX,mouseY) && !playKlikattu){
-   this.ulkoasu.piirraUlkoasu();
-   playKlikattu = true; 
-  }
     
   if(this.ulkoasu.klikattuSymboli(mouseX, mouseY) != 0 && !playKlikattu){
   leimasin = this.ulkoasu.klikattuSymboli(mouseX, mouseY);
