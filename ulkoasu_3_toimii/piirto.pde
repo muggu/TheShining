@@ -28,7 +28,7 @@ boolean playKlikattu;
 boolean pauseKlikattu;
 int leimasin;
 
-float ellipsiMuuntokerroinX = 0.50; //kuinka paljon mikkihiirenpaakuvio pienenee
+float ellipsiMuuntokerroinX = 0.50;
 float ellipsiMuuntokerroinY = 0.60;
 float ellipsiKokokerroin = 1.6;
 
@@ -53,7 +53,7 @@ void setup() {
   this.omakuva = new OmaKuva();
 
   pauseKlikattu = false;
-  kuva = loadImage("minionitpieni2.jpg");
+  kuva = loadImage("snorlax.png");
   asetaKuva(kuva);
   noStroke();
   background(255);
@@ -86,6 +86,7 @@ void tarkistaLeimasin(){
   pieniKoko = 10;
   suuriKoko = 80;
   pallojenMaara = 2000;
+  pienennysKerroin = 1;
   
   }
   
@@ -247,11 +248,12 @@ void draw() {
   tarkistaLeimasin();
   
   if(pauseKlikattu){
+   this.ulkoasu.piirraPause(false);
    playKlikattu = false;
   }
   
   if(kaynnissa() && playKlikattu && !kuvaaPiirretaan && !pauseKlikattu){
-    
+    this.ulkoasu.piirraPause(true);
     piirra();
     //Sydän
     if(leimasin == sydan){
@@ -312,6 +314,7 @@ void mouseClicked() {
    if(playKlikattu&&!pauseKlikattu){   
    pauseKlikattu = true;
    }
+   
    if(!playKlikattu && pauseKlikattu){     
    playKlikattu = true;
    pauseKlikattu = false; 
@@ -326,6 +329,8 @@ void mouseClicked() {
   if(!playKlikattu){
     int kuvanumero = this.ulkoasu.klikattuValokuva(mouseX, mouseY);
       if(kuvanumero != 0) {
+        this.ulkoasu.piirraUlkoasu();
+        koko = suuriKoko;
           asetaKuva(annaKuva(kuvanumero-1));
       }
   }  
@@ -333,6 +338,7 @@ void mouseClicked() {
   if(this.ulkoasu.klikattuSymboli(mouseX, mouseY) != 0 && !playKlikattu){
   leimasin = this.ulkoasu.klikattuSymboli(mouseX, mouseY);
   this.ulkoasu.piirraUlkoasu();
+  koko = suuriKoko;
   }
   
   if(this.ulkoasu.klikattuLataa(mouseX, mouseY) && !playKlikattu) {

@@ -20,6 +20,7 @@ public class Ulkoasu {
   PImage fourvalittu = loadImage("fourkopio.png");
   PImage fivevalittu = loadImage("fivekopio.png");
   PImage save = loadImage("save.png");
+  PImage pause = loadImage("pause.png");
   PFont fontti;
   int valittuSymboli = 0; //Symboli, jota on klikattu (highlight'aus). Alussa ylin symboli.
   int valittuValokuva = 0;
@@ -77,17 +78,25 @@ public class Ulkoasu {
    piirraValokuvat(); 
    piirraTallenna();
       
-   PImage pause = loadImage("pause.png");
    stroke(150);
    strokeWeight(2);
-   fill(200);
-   ellipse(650, 442, 94, 94);
-   image(pause, 605, 396);
+
    noFill();
    noStroke();
       
    }
   
+  void piirraPause(boolean tauko){
+   if(!tauko){
+    scale(0.75); //pienennetaan play-kuvaa
+    image(playkuva, (1/0.75)*(playX-playHalkaisija/2), (1/0.75)*(playY-playHalkaisija/2));
+    scale(1/0.75);}
+   else{
+    fill(223,87,69);
+    ellipse(650, 442, 94, 94);
+    image(pause, 605, 396); 
+   }
+  }
   
   /**Piirtaa nappulat, joilla voi vaihtaa symbolia, jolla muodostetaan kuva.
   * Nappuloihin tulee kuvat listasta esim?!
@@ -120,9 +129,8 @@ public class Ulkoasu {
   
     stroke(0);
     //piirretaan play-nappi
-    scale(0.75); //pienennetaan play-kuvaa
-    image(playkuva, (1/0.75)*(playX-playHalkaisija/2), (1/0.75)*(playY-playHalkaisija/2));
-    scale(1/0.75);
+    piirraPause(false);
+  
     //oman kuvan lisaaminen -nappi
     
     tint(150);
