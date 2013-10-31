@@ -57,7 +57,7 @@ void setup() {
   this.ulkoasu.piirraUlkoasu();
   
   valokuvat[0] = kuva;
-  valokuvat[1] = loadImage("mikkihiiri.png");
+  valokuvat[1] = loadImage("bulbasaur.jpg");
   valokuvat[2] = loadImage("eevee.gif");
   valokuvat[3] = loadImage("slowpoke.jpg");
   valokuvat[4] = loadImage("psyduck.gif");
