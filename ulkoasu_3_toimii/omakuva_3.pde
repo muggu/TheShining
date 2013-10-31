@@ -5,9 +5,9 @@ public class OmaKuva {
   public PImage ladattuKuva;
   
   //taytyy sovittaa piirtoaluenelion sivun pituuteen ja marginaaleihin
-  int sivu = 400; //sivun pituus pikseleina
-  int marginaaliX = 70;
-  int marginaaliY = 120;
+  int sivu = 505; //sivun pituus pikseleina
+  int marginaaliX = 23;
+  int marginaaliY = 77;
   
   PImage lataaKuva(File polku) {
     if (polku != null) {
@@ -25,7 +25,7 @@ public class OmaKuva {
     if (polku != null) {
       String nimi = polku.toString();
       //kaapataan pikselit uuteen kuvaan, joka on nelio
-      PImage muokattuKuva = get(0, 0, sivu, sivu);
+      PImage muokattuKuva = get(marginaaliX, marginaaliY, sivu, sivu);
       //tallennetaan nimella
       muokattuKuva.save(nimi +".png");
     } else {

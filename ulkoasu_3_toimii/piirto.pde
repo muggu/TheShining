@@ -213,7 +213,6 @@ void piirraKuva(){
     transparency = transparency + 0.2 ;
   } 
   
-  
   tint(255,255,255,transparency);
   image(kuva, alkuX, alkuY, leveys, korkeus);
   tint(255,255,255,255);
@@ -327,22 +326,29 @@ void mouseMoved() {
 }
 
 void asetaKuva(PImage image) {
-  this.kuva = image;
+  if (image != null) {
+    this.kuva = image;
+    
+    int sivu = 400;
+    leveys = 400;
+    korkeus = 400;
   
-  int sivu = 400;
-  leveys = 400;
-  korkeus = 400;
-  
-  //skaalataan pidemman sivun mukaan
-  if (kuva.height <= kuva.width) { //vaakakuva tai nelio
-    float kerroin = kuva.height / kuva.width;
-    korkeus = int(sivu*kerroin);
-    kuva.resize(sivu, korkeus);
-  }
-  else { //pystykuva
-    float kerroin = kuva.width / kuva.height;
-    leveys = int(sivu*kerroin);
-    kuva.resize(leveys, sivu);
+    //skaalataan pidemman sivun mukaan
+    if (kuva.height <= kuva.width) { //vaakakuva tai nelio
+      float kerroin = kuva.height / kuva.width;
+      korkeus = int(sivu*kerroin);
+      kuva.resize(sivu, korkeus);
+    }
+    else { //pystykuva
+      float kerroin = kuva.width / kuva.height;
+      leveys = int(sivu*kerroin);
+      kuva.resize(leveys, sivu);
+    }
+    
+    if ((leimasin == sydan || leimasin == palloKorva || leimasin == tahti) != true) {
+      leimasin = sydan;
+    }
+    
   }
   
 }
