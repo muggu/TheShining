@@ -20,6 +20,7 @@ int alkuY = 120;
 
 boolean kuvaaPiirretaan;
 boolean playKlikattu; 
+boolean pauseKlikattu;
 int leimasin;
 
 float ellipsiMuuntokerroinX = 0.50;
@@ -279,6 +280,9 @@ void draw() {
 
     }
   }
+  /*if(kaynnissa() && pauseKlikattu && kuvaaPiirretaan){
+    !playKlikattu;
+  }*/
   else{
    koko = suuriKoko; 
   }
