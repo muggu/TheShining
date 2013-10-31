@@ -53,7 +53,7 @@ public class Ulkoasu {
   int infoY = 30;
   int infoHalkaisija = 32;
   boolean infoNakyvilla = false;
-  PImage[] symbolit = {mikkihiiri, sydan, tahti}; 
+  PImage[] symbolit = {sydan, mikkihiiri, tahti}; 
   PImage[] numerot = {one, two, three, four, five};
   PImage[] valittunro = {onevalittu, twovalittu, threevalittu, fourvalittu, fivevalittu};
   
@@ -75,6 +75,19 @@ public class Ulkoasu {
    piirraValokuvat(); 
    piirraTallenna();
    
+   
+   
+   PImage pause = loadImage("pause.png");
+   stroke(150);
+   strokeWeight(2);
+   fill(200);
+   ellipse(650, 442, 94, 94);
+   image(pause, 605, 396);
+   noFill();
+   noStroke();
+   
+   
+   
    }
   
   
@@ -89,9 +102,31 @@ public class Ulkoasu {
       if (this.valittuSymboli == i+1) {
         stroke(200);
       }
-   image(sydan, aloitusX + 5, 98);
+   
+   tint(150);
+   image(sydan, aloitusX+7, 103);
+   image(mikkihiiri, aloitusX+1, 204);
+   image(tahti, aloitusX+12, 302);
+   image(tahti, aloitusX+13, 303);
+  
+   
+   if (valittuSymboli != 1) {
+      image(sydan, aloitusX+11, 102); 
+   }
+   
+   if (valittuSymboli != 2) {
+      image(mikkihiiri, aloitusX+5, 205); 
+   }
+   if (valittuSymboli != 3) {
+       image(tahti, aloitusX+14, 304);
+       image(tahti, aloitusX + 15, 305);
+     
+   }
+      
+   noTint();
    image(mikkihiiri, aloitusX,200);
-   image(tahti, aloitusX + 10, 300);  
+   image(sydan, aloitusX + 5, 98);
+   image(tahti, aloitusX + 10, 300); 
   }
     stroke(0);
     //piirretaan play-nappi
@@ -99,6 +134,12 @@ public class Ulkoasu {
     image(playkuva, (1/0.75)*(playX-playHalkaisija/2), (1/0.75)*(playY-playHalkaisija/2));
     scale(1/0.75);
     //oman kuvan lisaaminen -nappi
+    
+    tint(150);
+    image(lataakuva, lataaX+5, lataaY+5);
+    noTint();
+    
+    
     fill(250);
     noStroke();
     image(lataakuva, lataaX, lataaY);
