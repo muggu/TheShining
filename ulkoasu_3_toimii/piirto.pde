@@ -290,8 +290,6 @@ void draw() {
 }
 
 void mouseClicked() {
-  this.ulkoasu.klikattuSymboli(mouseX, mouseY);
-  this.ulkoasu.klikattuPlay(mouseX, mouseY);
 
   if(!playKlikattu){
   int kuvanumero = this.ulkoasu.klikattuValokuva(mouseX, mouseY);
@@ -307,6 +305,7 @@ void mouseClicked() {
   
   if(this.ulkoasu.klikattuSymboli(mouseX, mouseY) != 0 && !playKlikattu){
   leimasin = this.ulkoasu.klikattuSymboli(mouseX, mouseY);
+  this.ulkoasu.piirraUlkoasu();
   }
   
   if(this.ulkoasu.klikattuLataa(mouseX, mouseY) && !playKlikattu) {

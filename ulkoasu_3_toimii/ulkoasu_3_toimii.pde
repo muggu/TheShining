@@ -169,7 +169,6 @@ public class Ulkoasu {
          println(this.valittuSymboli); 
         }
       }
-      this.piirraUlkoasu();
       return this.valittuSymboli; 
     }
    return 0;
