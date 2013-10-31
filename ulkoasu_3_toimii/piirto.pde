@@ -109,6 +109,8 @@ boolean kaynnissa(){
  else{
  playKlikattu = false;
  pallot = 0;
+ this.ulkoasu.piirraPause(false);
+ pauseKlikattu = false;
  return false;
 }
 }

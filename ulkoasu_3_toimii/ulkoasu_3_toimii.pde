@@ -244,7 +244,7 @@ public class Ulkoasu {
   text("With this new picture editor you can", 275, 185);
   text("modify your pictures with different shapes!", 275, 210);
   text("First, choose the shape that will form the image.", 275, 235);
-  text("Then, choose the number of an image, and click play!", 275, 260);
+  text("Then, choose the number of an image, and doubleclick play!", 280, 260);
   text("When the program is running, you're not able", 275, 285);
   text("to change the shape or image.", 275, 310);
   text("You can also upload your own pictures", 275, 335);
