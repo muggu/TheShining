@@ -19,8 +19,8 @@ public class Ulkoasu {
   PImage fivevalittu = loadImage("fivekopio.png");
   PImage save = loadImage("save.png");
   PFont fontti;
-  int valittuSymboli = 1; //Symboli, jota on klikattu (highlight'aus). Alussa ylin symboli.
-  int valittuValokuva = 1;
+  int valittuSymboli = 0; //Symboli, jota on klikattu (highlight'aus). Alussa ylin symboli.
+  int valittuValokuva = 0;
   //symbolinapit:
   int napinLeveys = 80; //symbolinapin leveys
   int napinKorkeus = 70;  //symbolinapin korkeus
@@ -74,9 +74,7 @@ public class Ulkoasu {
    piirraNapit();
    piirraValokuvat(); 
    piirraTallenna();
-   
-   
-   
+      
    PImage pause = loadImage("pause.png");
    stroke(150);
    strokeWeight(2);
@@ -85,9 +83,7 @@ public class Ulkoasu {
    image(pause, 605, 396);
    noFill();
    noStroke();
-   
-   
-   
+      
    }
   
   
@@ -97,19 +93,12 @@ public class Ulkoasu {
   */
   void piirraNapit() {
     //piirretaan symbolinapit
-    for(int i = 0; i<3; i++) {
-      stroke(0);
-      if (this.valittuSymboli == i+1) {
-        stroke(200);
-      }
-   
    tint(150);
    image(sydan, aloitusX+7, 103);
    image(mikkihiiri, aloitusX+1, 204);
    image(tahti, aloitusX+12, 302);
    image(tahti, aloitusX+13, 303);
-  
-   
+     
    if (valittuSymboli != 1) {
       image(sydan, aloitusX+11, 102); 
    }
@@ -120,14 +109,13 @@ public class Ulkoasu {
    if (valittuSymboli != 3) {
        image(tahti, aloitusX+14, 304);
        image(tahti, aloitusX + 15, 305);
-     
    }
       
    noTint();
    image(mikkihiiri, aloitusX,200);
    image(sydan, aloitusX + 5, 98);
    image(tahti, aloitusX + 10, 300); 
-  }
+  
     stroke(0);
     //piirretaan play-nappi
     scale(0.75);
@@ -138,8 +126,7 @@ public class Ulkoasu {
     tint(150);
     image(lataakuva, lataaX+5, lataaY+5);
     noTint();
-    
-    
+      
     fill(250);
     noStroke();
     image(lataakuva, lataaX, lataaY);
@@ -151,8 +138,7 @@ public class Ulkoasu {
     scale(1/0.5);
     fill(200);
 }
-  
-  
+    
   /*Piirretaan valokuvavaihtoehdot alareunaan. 
   */
   void piirraValokuvat() {
@@ -183,7 +169,7 @@ public class Ulkoasu {
          println(this.valittuSymboli); 
         }
       }
-      this.piirraNapit();
+      this.piirraUlkoasu();
       return this.valittuSymboli; 
     }
    return 0;
