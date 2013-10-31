@@ -330,14 +330,16 @@ void mouseClicked() {
     int kuvanumero = this.ulkoasu.klikattuValokuva(mouseX, mouseY);
       if(kuvanumero != 0) {
         this.ulkoasu.piirraUlkoasu();
-        koko = suuriKoko;
           asetaKuva(annaKuva(kuvanumero-1));
+          tarkistaLeimasin();
+          koko = suuriKoko;
       }
   }  
     
   if(this.ulkoasu.klikattuSymboli(mouseX, mouseY) != 0 && !playKlikattu){
   leimasin = this.ulkoasu.klikattuSymboli(mouseX, mouseY);
   this.ulkoasu.piirraUlkoasu();
+  tarkistaLeimasin();
   koko = suuriKoko;
   }
   
