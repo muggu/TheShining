@@ -1,50 +1,39 @@
-public class Princess {
-  float c_x = 0;
-  float c_y = 0;
-  float speedX = 0;
-  boolean caught= false;
-  //Constructor for princess class
-  Princess () {
-    c_x = random(-200, -50);
-    c_y = random(50, 550);
-    speedX = random (3, 5);
-    speedX=speedX+(score/10);
+PImage lahjakuva;
+
+public class Lahja {
+  
+  PImage lahjakuva = loadImage("princess.png");
+  float sijaintiX = 0;
+  float sijaintiY = 0;
+  float nopeus = 0;
+  int ALARAJA = 50;
+  
+  Lahja () {
+    sijaintiX = random(width-100,width);
+    sijaintiY = random(ALARAJA, height-ALARAJA);
+    nopeus = random (-5, -10);
+    nopeus();
   }
-  //Initializes the princess image and start position
-  public void init() {
-    caught = false;
-    translate(0, 0);
-    image(princess, c_x, c_y);
-    if (c_x > width + 80) {
-      c_y = random(height);
-      c_x = random(-200, 0);
-    }
+
+    
+
+
+  void nopeus() {
+    
+    image(lahjakuva, sijaintiX, sijaintiY);
+    sijaintiX+=nopeus;
+    
+    if (sijaintiX < 0) {
+    sijaintiY = random(ALARAJA,height);
+    sijaintiX = width;
+   }
   }
-  //Speed fuction
-  public void speed() {
-    c_x+=speedX+speedInc;
+  
+  float annaX(){
+   return sijaintiX; 
   }
-  //Collision function detects coordinate clash
-  public void collision() {
-    if (c_x>width-200 && c_x<width-165) {
-      if (c_y>mouseY-30 && c_y<mouseY+30) {
-        caught=true;
-      }
-    }
-  }
-  //runs the necessary Princess class functions
-  public void run() {
-    collision();
-    if (caught==false) {
-      init();
-      speed();
-    }
-    if (caught==true) {
-      score+=10;
-      c_y = random(height);
-      c_x = random(-200, -50);
-      init();
-      speed();
-    }
+  
+  float annaY(){
+   return sijaintiY; 
   }
 }
