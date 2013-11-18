@@ -1,9 +1,13 @@
-PImage pedo;
-PImage back;
-PImage endback;
+import pitaru.sonia_v2_9.*;
+
+PImage minioni;
+PImage taustaKuva;
 
 int LEVEYS = 640;
 int KORKEUS = 480;
+
+float x;
+float y;
 
 ArrayList<Lahja> lahjat;
 
@@ -11,34 +15,29 @@ Lahja lahja1;
 Lahja lahja2;
 Lahja lahja3;
 
-
 Menu menu;
 
-boolean menuok = false;
-boolean end= false;
 boolean tormays = false;
-float x;
-float y;
-//taustakuvan sijainti
-float bpos=1300;
-int score = 0;
-int N = 200;
-int time=0;
-int starttime=0;
-int newtime=0;
-int counter = score/10; 
+boolean menuKlikattu = false;
+boolean peliLoppu = false;
+
+int taustanReuna = 500;
 int MINION = 150;
 int LAHJA = 50;
+
+int aika;
+int alkuAika;
+int nykyAika;
+ 
  
 void setup() {
+  
   size(LEVEYS, KORKEUS);
-  background(0);
   smooth();
+  
   lahjat = new ArrayList<Lahja>();
-  //IMAGES LOADING
-  endback=loadImage("tausta.jpg");
-  back = loadImage("tausta.jpg");
-  pedo = loadImage("pedo.png");
+  taustaKuva = loadImage("tausta.jpg");
+  minioni = loadImage("min1.png");
   
   lahja1 = new Lahja();
   lahja2 = new Lahja();
@@ -55,38 +54,40 @@ void setup() {
 void draw() {
  
   //checking if menu is passed and the countdown is not finish
-  if (menuok == false) {
+  if (menuKlikattu == false) {
     menu = new Menu();
   }
-  else{
   
-   
-
+  else{
     
     if(!tormays){
-    clear();
-    back();
-    time();
-    text(score, 30, 40);//display the score on top left corner
-    text(time, width-40, 40);//display the countdown on top right corner
-    bear(); 
-    
-    for(int i=0; i<lahjat.size(); i++){
-      lahjat.get(i).nopeus();
-      tormays(lahjat.get(i));
-    }
+      clear();
+      muutaTausta();
+      tarkistaAika();
+      
+      text(aika, width-40, 40);//display the countdown on top right corner
+      
+      piirraMinioni(); 
+     
+      for(int i=0; i<lahjat.size(); i++){
+        lahjat.get(i).nopeus();
+        tormays(lahjat.get(i));
+      }
     
     }
   }
 }
 
-void time() {
-  if (menuok==true) { //if the game started
-    newtime=millis();
-    time=((newtime-starttime)/1000);
-    time=59-time;
-    if (time<=1) {
-      end=true; // when the countdown ends
+void tarkistaAika() {
+  if (menuKlikattu) {
+    
+    nykyAika = millis();
+    
+    aika = ((nykyAika-alkuAika)/1000);
+    aika = 30-aika;
+    
+    if (aika < 1) {
+      peliLoppu = true;
     }
   }
 }
@@ -105,27 +106,26 @@ if(lahjaX > MINION-LAHJA && lahjaX < MINION+LAHJA ){
 }
  
 //back function sets the background scrolling
-void back() {
-  image(back, bpos, height/2);
-  bpos=bpos-3;
-  if (bpos<0) {
-    bpos=1300;
+void muutaTausta() {
+  image(taustaKuva, taustanReuna, height/2);
+  taustanReuna = taustanReuna - 5;
+  if (taustanReuna < 0) {
+    taustanReuna = 500;
   }
 }
  
-void bear() {
+void piirraMinioni() {
   x = MINION;
   y = mouseY;
-  image(pedo, x, y);
+  image(minioni, x, y);
 }
 
 void mouseClicked() {
-  
-  if (menuok == false) {
+  if (menuKlikattu == false) {
     if (mouseX >=((width/2)-150) && mouseX <=((width/2)+150)) {
       if (mouseY >=(300) && mouseY <=(400)) {
-        menuok = true;
-        starttime=millis();
+        alkuAika = millis();
+        menuKlikattu = true;
       }
     }
   }
