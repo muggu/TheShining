@@ -25,13 +25,17 @@ int taustanReuna = 500;
 int MINION = 150;
 int LAHJA = 50;
 
+int hyppyVakio = 0;
+
 int aika;
 int alkuAika;
 int nykyAika;
+
+Taputus taputus;
  
  
 void setup() {
-  
+    
   size(LEVEYS, KORKEUS);
   smooth();
   
@@ -47,6 +51,8 @@ void setup() {
   lahjat.add(lahja2);
   lahjat.add(lahja3);
   
+  Sonia.start(this); // Start Sonia engine.
+  LiveInput.start(); // Start listening to the microphone
   
   imageMode(CENTER);
 }
@@ -115,9 +121,32 @@ void muutaTausta() {
 }
  
 void piirraMinioni() {
-  x = MINION;
-  y = mouseY;
+  // tee ajalla
+  if(tarkistaVolume()){
+   hyppyVakio = 1;
+   y = y-50;
+   x = MINION;
   image(minioni, x, y);
+  }else{
+    if(hyppyVakio==1){
+      y = y-50;
+     hyppyVakio = 2; 
+     x = MINION;
+  image(minioni, x, y);
+    }
+    if(hyppyVakio==2){
+      y = y+50;
+      hyppyVakio = 0;
+      x = MINION;
+  image(minioni, x, y);
+    }
+    else{
+    y = KORKEUS-100;
+    x = MINION;
+  image(minioni, x, y);
+  }
+  
+}
 }
 
 void mouseClicked() {
@@ -131,3 +160,15 @@ void mouseClicked() {
   }
 }
 
+boolean tarkistaVolume(){
+    float vol = LiveInput.getLevel();
+println("toimiiko?");
+  if (vol > 0.3) {
+    println("toimii");
+  return true;
+  }
+  else{
+    println("eikö toimi");
+    return false;
+  }
+}

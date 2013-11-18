@@ -10,7 +10,7 @@ public class Lahja {
   
   Lahja () {
     sijaintiX = random(width-100,width);
-    sijaintiY = random(ALARAJA, height-ALARAJA);
+    sijaintiY = random(ALARAJA, height-3*ALARAJA);
     nopeus = random (-5, -10);
     nopeus();
   }
