@@ -32,6 +32,8 @@ int alkuAika;
 int nykyAika;
 
 Taputus taputus;
+
+boolean clapping;
  
  
 void setup() {
@@ -122,31 +124,33 @@ void muutaTausta() {
  
 void piirraMinioni() {
   // tee ajalla
-  if(tarkistaVolume()){
-   hyppyVakio = 1;
-   y = y-50;
-   x = MINION;
-  image(minioni, x, y);
-  }else{
-    if(hyppyVakio==1){
-      y = y-50;
-     hyppyVakio = 2; 
-     x = MINION;
-  image(minioni, x, y);
-    }
-    if(hyppyVakio==2){
-      y = y+50;
-      hyppyVakio = 0;
-      x = MINION;
-  image(minioni, x, y);
-    }
-    else{
-    y = KORKEUS-100;
-    x = MINION;
-  image(minioni, x, y);
-  }
+  boolean hyppy = false;
   
-}
+  
+  if(tarkistaVolume()){
+    hyppy = true;
+  }
+  if(hyppy){
+    for(int i=0; i<4; i++){
+       y = y-50;
+       x = MINION;
+       image(minioni, x, y);
+    }
+    
+    for(int j=0; j<4; j++){
+      y = y+50;
+      x=MINION;
+      image(minioni, x, y);
+    }
+    hyppy = false;
+  }
+  else{
+      y = height - 50;
+      x = MINION;
+      image(minioni, x, y);
+
+  }
+   
 }
 
 void mouseClicked() {
@@ -160,15 +164,17 @@ void mouseClicked() {
   }
 }
 
+
 boolean tarkistaVolume(){
+  
+  
     float vol = LiveInput.getLevel();
-println("toimiiko?");
-  if (vol > 0.3) {
-    println("toimii");
-  return true;
-  }
-  else{
-    println("eikö toimi");
-    return false;
-  }
+    float clapLevel = 0.3;  // How loud is a clap
+    
+    if (vol > clapLevel){ 
+      return true;  
+    }
+    else{
+      return false;
+    }
 }

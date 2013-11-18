@@ -21,7 +21,11 @@ boolean annaVolume(){
 
 
 void volume(){
-  
+    
+    float clapLevel = 0.5;  // How loud is a clap
+    float threshold = 0.25; // How quiet is silence
+
+    
     float vol = LiveInput.getLevel();
     
     if (vol > clapLevel  && !clapping){ 
