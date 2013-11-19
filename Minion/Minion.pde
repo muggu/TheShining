@@ -3,6 +3,11 @@ import pitaru.sonia_v2_9.*;
 PImage minioni;
 PImage taustaKuva;
 
+int minioniLkm = 24; //kuvien maara animaatiossa
+int kuvaLkm = 13; //erilaisten kuvien maara
+int minioniIndeksi = 0; //piirrettavan kuvan indeksi
+PImage[] minionit = new PImage[minioniLkm];
+
 int LEVEYS = 640;
 int KORKEUS = 480;
 
@@ -41,8 +46,21 @@ void setup() {
   
   lahjat = new ArrayList<Lahja>();
   taustaKuva = loadImage("tausta.jpg");
-  minioni = loadImage("min1.png");
   
+  //ladataan kuvat minionianimaatiota varten ja tallennetaan taulukkoon
+  frameRate(24);
+  int j = 2;
+  for (int i = 0; i < minioniLkm; i++) {
+    if (i < kuvaLkm) { //ladataan kaikki eri kuvat
+      String kuvanNimi = "min" + (i + 1) + ".png";
+      minionit[i] = loadImage(kuvanNimi);
+    } 
+    else if (i < (minioniLkm)) { //tallennetaan kaikki paitsi eka ja vika kahteen kertaan, koska liike on edestakaista
+      minionit[i] = minionit[i-j];
+      j += 2;
+    }
+  }
+
   lahja1 = new Lahja();
   lahja2 = new Lahja();
   lahja3 = new Lahja();
@@ -81,9 +99,12 @@ void draw() {
       
       text(aika, width-40, 40);
       
+      //kierratetaan kuvia %-operaattorilla animaatiota varten
+      minioniIndeksi = (minioniIndeksi + 1) % minioniLkm;
+      
       piirraMinioni(); 
       tarkistaLahjat();
-          }
+    }
 
 }
 
@@ -126,6 +147,9 @@ void muutaTausta() {
 }
  
 void piirraMinioni() {
+
+  //animaatio
+  minioni = minionit[minioniIndeksi];
   
   if(hyppy){
     for(int i=0; i<4; i++){
