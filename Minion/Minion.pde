@@ -104,11 +104,11 @@ void draw() {
       
       clear();
       
-      text(aika, width-40, 40);
-      text(pisteet, width-100, 40);  
-      
       //muutaTausta();
       image(taustaKuva, width/2, height/2); //tausta pysyy paikallaan
+      
+      text(aika, width-40, 40);
+      text(pisteet, width-100, 40);  
 
       //kierratetaan kuvia %-operaattorilla animaatiota varten
       minioniIndeksi = (minioniIndeksi + 1) % minioniLkm;     
