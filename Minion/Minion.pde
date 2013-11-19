@@ -20,6 +20,7 @@ Menu menu;
 boolean tormays = false;
 boolean menuKlikattu = false;
 boolean peliLoppu = false;
+boolean hyppy = false;
 
 int taustanReuna = 500;
 int MINION = 150;
@@ -58,6 +59,14 @@ void setup() {
   
   imageMode(CENTER);
 }
+
+void tarkistaLahjat(){
+  for(int i=0; i<lahjat.size(); i++){
+   lahjat.get(i).nopeus();
+   tormays(lahjat.get(i));
+ 
+}
+}
  
 void draw() {
  
@@ -76,13 +85,8 @@ void draw() {
       text(aika, width-40, 40);//display the countdown on top right corner
       
       piirraMinioni(); 
-     
-      for(int i=0; i<lahjat.size(); i++){
-        lahjat.get(i).nopeus();
-        tormays(lahjat.get(i));
-      }
-    
-    }
+      tarkistaLahjat();
+          }
     else{
       clear();
       menu = new Menu();
@@ -129,28 +133,23 @@ void muutaTausta() {
 }
  
 void piirraMinioni() {
-  // tee ajalla
-  boolean hyppy = false;
   
+  if(hyppy){
+    for(int i=0; i<4; i++){
+       hyppaa(-1);
+    }
+    
+    for(int j=0; j<4; j++){
+      hyppaa(1);
+    }
+    hyppy = false;
+  }
   
   if(tarkistaVolume()){
     hyppy = true;
   }
-  if(hyppy){
-    for(int i=0; i<4; i++){
-       y = y-50;
-       x = MINION;
-       image(minioni, x, y);
-    }
-    
-    for(int j=0; j<4; j++){
-      y = y+50;
-      x=MINION;
-      image(minioni, x, y);
-    }
-    hyppy = false;
-  }
-  else{
+
+  if(!hyppy){
       y = height - 50;
       x = MINION;
       image(minioni, x, y);
@@ -184,3 +183,17 @@ boolean tarkistaVolume(){
       return false;
     }
 }
+
+void hyppaa(int i){
+
+    x = MINION;
+   if(i==-1){
+    y = y-30;
+    }
+   
+    if(i==1){ 
+      y = y+30;
+    }  
+   image(minioni, x, y);
+}
+
