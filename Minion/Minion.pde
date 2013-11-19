@@ -51,12 +51,12 @@ void setup() {
   smooth();
   
   lahjat = new ArrayList<Lahja>();
-  taustaKuva = loadImage("tausta.jpg");
+  taustaKuva = loadImage("c.png");
 
-//ladataan kuvat minionianimaatiota varten ja tallennetaan taulukkoon
- frameRate(24);
+  //ladataan kuvat minionianimaatiota varten ja tallennetaan taulukkoon
+  frameRate(24);
   int j = 2;
-    for (int i = 0; i < minioniLkm; i++) {
+  for (int i = 0; i < minioniLkm; i++) {
     if (i < kuvaLkm) { //ladataan kaikki eri kuvat
       String kuvanNimi = "min" + (i + 1) + ".png";
       minionit[i] = loadImage(kuvanNimi);
@@ -66,8 +66,6 @@ void setup() {
       j += 2;
     }
   }
-
-
   
   lahja1 = new Lahja();
   lahja2 = new Lahja();
@@ -86,53 +84,50 @@ void setup() {
 }
 
 void tarkistaLahjat(){
-  for(int i=0; i<lahjat.size(); i++){
-   lahjat.get(i).nopeus();
-   tormays(lahjat.get(i));
- 
-}
+  for (int i = 0; i < lahjat.size(); i++) {
+    lahjat.get(i).nopeus();
+    tormays(lahjat.get(i));
+  }
 }
  
 void draw() {
    
   if (!menuKlikattu) {
-      clear();
-      menu = new Menu();
-      tarkistaVolume();
+    clear();
+    menu = new Menu();
+    tarkistaVolume();
   }
   
-  else{
+  else {
     
-    if(!peliLoppu){
+    if (!peliLoppu) {
       
       clear();
       
       text(aika, width-40, 40);
       text(pisteet, width-100, 40);  
       
-      muutaTausta();
+      //muutaTausta();
+      image(taustaKuva, width/2, height/2); //tausta pysyy paikallaan
 
       //kierratetaan kuvia %-operaattorilla animaatiota varten
-     minioniIndeksi = (minioniIndeksi + 1) % minioniLkm;     
+      minioniIndeksi = (minioniIndeksi + 1) % minioniLkm;     
       
       piirraMinioni(); 
       tarkistaLahjat();
-
       
-      if (hyppy){
-      hyppyNopeus = (hyppyNopeus + 1) % 2;
-      hyppaa(-1);
-      image(minioni, x, y);
-      if(hyppyKaynnissa){
-        hyppaa(1);
+      if (hyppy) {
+        hyppyNopeus = (hyppyNopeus + 1) % 2;
+        hyppaa(-1);
         image(minioni, x, y);
+        if (hyppyKaynnissa) {
+          hyppaa(1);
+          image(minioni, x, y);
+        }
       }
-     }
-   tarkistaAika();
-
+      tarkistaAika();
     }
-
-}
+  }
 
 }
 
@@ -142,8 +137,8 @@ void tarkistaAika() {
     
     nykyAika = millis();
     
-    aika = ((nykyAika-alkuAika)/1000);
-    aika = 15-aika;
+    aika = ((nykyAika - alkuAika) / 1000);
+    aika = 15 - aika;
     
     if (aika < 1) {
       peliLoppu = true;
@@ -156,15 +151,15 @@ void tarkistaAika() {
 
 void tormays(Lahja lahja){
   
-float lahjaX = lahja.annaX();
-float lahjaY = lahja.annaY();
+  float lahjaX = lahja.annaX();
+  float lahjaY = lahja.annaY();
 
-if(lahjaX > MINION-LAHJA && lahjaX < MINION+LAHJA ){
-  if(lahjaY+LAHJA>y && lahjaY-LAHJA<y){
-    tormays = true;
-    pisteet = pisteet + 10;
-}  
-}
+  if (lahjaX > MINION-LAHJA && lahjaX < MINION+LAHJA ) {
+    if (lahjaY+LAHJA>y && lahjaY-LAHJA<y) {
+      tormays = true;
+      pisteet = pisteet + 10;
+    }  
+  }
 }
 
 void muutaTausta() {
@@ -181,78 +176,74 @@ void piirraMinioni() {
   minioni = minionit[minioniIndeksi];
 
   
-  if(hyppy){
-    for(int i=0; i<4; i++){
-       hyppaa(-1);
+  if (hyppy) {
+    for (int i = 0; i < 4; i++) {
+      hyppaa(-1);
     }
-    for(int j=0; j<4; j++){
+    for (int j = 0; j < 4; j++) {
       hyppaa(1);
     }
     hyppy = false;
   }
   
-  if(tarkistaVolume()){
-    hyppy = true;
-  }
+  hyppy = tarkistaVolume();
 
-  if(!hyppy && !hyppyKaynnissa){
-      y = height - 100;
-      x = MINION;
-      image(minioni, x, y);
-
+  if (!hyppy && !hyppyKaynnissa) {
+    y = height - 100;
+    x = MINION;
+    image(minioni, x, y);
   }
    
 }
 
-boolean tarkistaVolume(){
+boolean tarkistaVolume() {
   
-  
-    float vol = LiveInput.getLevel();
-    float clapLevel = 0.3;
+  float vol = LiveInput.getLevel();
+  float clapLevel = 0.3;
     
-    if (vol > clapLevel){ 
-      if(!menuKlikattu){
-        alkuAika = millis();
-        menuKlikattu = true;
-      }
-      if(peliLoppu){
-      peliLoppu = false;
+  if (vol > clapLevel) { 
+    if (!menuKlikattu) {
+      alkuAika = millis();
       menuKlikattu = true;
-      }
-      taputusVolume = vol;
-      return true;  
     }
-    else{
-      return false;
+    if (peliLoppu) {
+    peliLoppu = false;
+    menuKlikattu = true;
     }
+    taputusVolume = vol;
+    return true;  
+  }
+  else {
+    return false;
+  }
 }
 
-void hyppaa(int i){
+void hyppaa(int i) {
       
-    hyppyKaynnissa = true;
+  hyppyKaynnissa = true;
     
-    int hyppyKorkeus = 0; 
+  int hyppyKorkeus = 0; 
   
-    if(taputusVolume>0.3){
-      hyppyKorkeus = 30;
-      if(taputusVolume>0.31){
-        hyppyKorkeus = 50;  
+  if (taputusVolume > 0.3) {
+    hyppyKorkeus = 30;
+    if (taputusVolume > 0.31) {
+      hyppyKorkeus = 50;  
     }
-    if (taputusVolume>0.32){
+    if (taputusVolume > 0.32) {
       hyppyKorkeus = 70;
     } 
-    }
+  }
   
-    x = MINION;
+  x = MINION;
     
-   if(i==-1){
+  if (i == -1) {
     hyppyNopeus = -hyppyKorkeus;
-}
+  }
    
-    if(i==1){ 
-      hyppyNopeus = hyppyKorkeus;
-    }  
-    y = y + hyppyNopeus;
-    hyppyKaynnissa = false;
+  if (i == 1) { 
+    hyppyNopeus = hyppyKorkeus;
+  }  
+  y = y + hyppyNopeus;
+  hyppyKaynnissa = false;
 }
 
