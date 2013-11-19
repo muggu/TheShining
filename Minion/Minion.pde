@@ -174,7 +174,7 @@ void piirraMinioni() {
   }
 
   if(!hyppy){
-      y = height - 50;
+      y = height - 100;
       x = MINION;
       image(minioni, x, y);
 
