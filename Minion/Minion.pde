@@ -10,6 +10,7 @@ PImage[] minionit = new PImage[minioniLkm];
 
 int LEVEYS = 640;
 int KORKEUS = 480;
+int pisteet = 0;
 
 float x;
 float y;
@@ -95,12 +96,14 @@ void draw() {
   
   else{
     
-    if(!tormays){
+    if(!peliLoppu){
       clear();
       muutaTausta();
       tarkistaAika();
       
+      
       text(aika, width-40, 40);
+      text(pisteet, width-100, 40);
       
       //kierratetaan kuvia %-operaattorilla animaatiota varten
      minioniIndeksi = (minioniIndeksi + 1) % minioniLkm;
@@ -119,10 +122,11 @@ void tarkistaAika() {
     nykyAika = millis();
     
     aika = ((nykyAika-alkuAika)/1000);
-    aika = 30-aika;
+    aika = 15-aika;
     
     if (aika < 1) {
       peliLoppu = true;
+      menuKlikattu = false;
     }
   }
 }
@@ -135,8 +139,7 @@ float lahjaY = lahja.annaY();
 if(lahjaX > MINION-LAHJA && lahjaX < MINION+LAHJA ){
   if(lahjaY+LAHJA>y && lahjaY-LAHJA<y){
     tormays = true;
-    menuKlikattu = false;
-    println("tormays");
+    pisteet = pisteet + 10;
 }  
 }
 }
