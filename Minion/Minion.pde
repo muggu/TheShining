@@ -23,6 +23,7 @@ ArrayList<Lahja> lahjat;
 Lahja lahja1;
 Lahja lahja2;
 Lahja lahja3;
+Lahja lahja4;
 
 Menu menu;
 
@@ -71,10 +72,12 @@ void setup() {
   lahja1 = new Lahja();
   lahja2 = new Lahja();
   lahja3 = new Lahja();
+  lahja4 = new Lahja();
   
   lahjat.add(lahja1);
   lahjat.add(lahja2);
   lahjat.add(lahja3);
+  lahjat.add(lahja4);
   
   Sonia.start(this);
   LiveInput.start();
@@ -91,7 +94,7 @@ void tarkistaLahjat(){
 }
  
 void draw() {
- 
+   
   if (!menuKlikattu) {
       clear();
       menu = new Menu();
@@ -101,20 +104,21 @@ void draw() {
   else{
     
     if(!peliLoppu){
+      
       clear();
+      
+      text(aika, width-40, 40);
+      text(pisteet, width-100, 40);  
       
       muutaTausta();
       tarkistaAika();
-      
-      
-      //kierratetaan kuvia %-operaattorilla animaatiota varten
-     minioniIndeksi = (minioniIndeksi + 1) % minioniLkm;
 
-     
-     
+      //kierratetaan kuvia %-operaattorilla animaatiota varten
+     minioniIndeksi = (minioniIndeksi + 1) % minioniLkm;     
       
       piirraMinioni(); 
       tarkistaLahjat();
+
       
       if (hyppy){
       hyppyNopeus = (hyppyNopeus + 1) % 2;
@@ -126,17 +130,14 @@ void draw() {
       }
      } 
      
-     
-      text(aika, width-40, 40);
-      text(pisteet, width-100, 40);
-
-          }
+    }
 
 }
 
 }
 
 void tarkistaAika() {
+  
   if (menuKlikattu) {
     
     nykyAika = millis();
@@ -201,18 +202,6 @@ void piirraMinioni() {
    
 }
 
-void mouseClicked() {
-  if (!menuKlikattu) {
-    if (mouseX >=((width/2)-150) && mouseX <=((width/2)+150)) {
-      if (mouseY >=(300) && mouseY <=(400)) {
-        alkuAika = millis();
-        menuKlikattu = true;
-      }
-    }
-  }
-}
-
-
 boolean tarkistaVolume(){
   
   
@@ -220,8 +209,11 @@ boolean tarkistaVolume(){
     float clapLevel = 0.3;
     
     if (vol > clapLevel){ 
+      if(!menuKlikattu){
+        alkuAika = millis();
+        menuKlikattu = true;
+      }
       taputusVolume = vol;
-      menuKlikattu = true;
       return true;  
     }
     else{

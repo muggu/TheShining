@@ -6,26 +6,24 @@ public class Lahja {
   float sijaintiX = 0;
   float sijaintiY = 0;
   float nopeus = 0;
-  int ALARAJA = 50;
+  int YLARAJA = 50;
   
   Lahja () {
-    sijaintiX = random(width-100,width);
-    sijaintiY = random(ALARAJA, height-3*ALARAJA);
-    nopeus = random (-5, -10);
+    sijaintiX = random(width-300,width+300);
+    sijaintiY = random(YLARAJA, height-2*YLARAJA);
     nopeus();
   }
 
-    
-
-
   void nopeus() {
     
+    nopeus = random (-10, -30);
     image(lahjakuva, sijaintiX, sijaintiY);
     sijaintiX+=nopeus;
+
     
     if (sijaintiX < 0) {
-    sijaintiY = random(ALARAJA,height);
-    sijaintiX = width;
+    sijaintiY =  random(YLARAJA, height-2*YLARAJA);
+    sijaintiX = random(width-300,width+300);
    }
   }
   
