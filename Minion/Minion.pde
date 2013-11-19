@@ -111,7 +111,6 @@ void draw() {
       text(pisteet, width-100, 40);  
       
       muutaTausta();
-      tarkistaAika();
 
       //kierratetaan kuvia %-operaattorilla animaatiota varten
      minioniIndeksi = (minioniIndeksi + 1) % minioniLkm;     
@@ -128,8 +127,9 @@ void draw() {
         hyppaa(1);
         image(minioni, x, y);
       }
-     } 
-     
+     }
+   tarkistaAika();
+
     }
 
 }
@@ -147,7 +147,9 @@ void tarkistaAika() {
     
     if (aika < 1) {
       peliLoppu = true;
-      menuKlikattu = false;
+      menuKlikattu = true;
+      clear();
+      text("Peli loppui, pisteesi ovat " + pisteet, width-300, 150);
     }
   }
 }
@@ -212,6 +214,10 @@ boolean tarkistaVolume(){
       if(!menuKlikattu){
         alkuAika = millis();
         menuKlikattu = true;
+      }
+      if(peliLoppu){
+      peliLoppu = false;
+      menuKlikattu = true;
       }
       taputusVolume = vol;
       return true;  
