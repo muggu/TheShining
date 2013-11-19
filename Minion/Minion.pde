@@ -30,6 +30,7 @@ boolean tormays = false;
 boolean menuKlikattu = false;
 boolean peliLoppu = false;
 boolean hyppy = false;
+boolean hyppyKaynnissa = false;
 
 int taustanReuna = 500;
 int MINION = 150;
@@ -110,16 +111,22 @@ void draw() {
      minioniIndeksi = (minioniIndeksi + 1) % minioniLkm;
 
      
-     if (hyppy){
-      hyppyNopeus = (hyppyNopeus + 10) % 17;
-      hyppaa(-1);
-      image(minioni, x, y);
-     } 
+     
       
       piirraMinioni(); 
       tarkistaLahjat();
       
-      
+      if (hyppy){
+      hyppyNopeus = (hyppyNopeus + 1) % 2;
+      hyppaa(-1);
+      image(minioni, x, y);
+      if(hyppyKaynnissa){
+        hyppaa(1);
+        image(minioni, x, y);
+      }
+     } 
+     
+     
       text(aika, width-40, 40);
       text(pisteet, width-100, 40);
 
@@ -175,7 +182,6 @@ void piirraMinioni() {
     for(int i=0; i<4; i++){
        hyppaa(-1);
     }
-    
     for(int j=0; j<4; j++){
       hyppaa(1);
     }
@@ -186,7 +192,7 @@ void piirraMinioni() {
     hyppy = true;
   }
 
-  if(!hyppy){
+  if(!hyppy && !hyppyKaynnissa){
       y = height - 100;
       x = MINION;
       image(minioni, x, y);
@@ -224,6 +230,8 @@ boolean tarkistaVolume(){
 }
 
 void hyppaa(int i){
+      
+    hyppyKaynnissa = true;
     
     int hyppyKorkeus = 0; 
   
@@ -247,5 +255,6 @@ void hyppaa(int i){
       hyppyNopeus = hyppyKorkeus;
     }  
     y = y + hyppyNopeus;
+    hyppyKaynnissa = false;
 }
 
