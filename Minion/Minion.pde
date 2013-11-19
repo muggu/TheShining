@@ -32,10 +32,7 @@ int aika;
 int alkuAika;
 int nykyAika;
 
-Taputus taputus;
-
-boolean clapping;
- 
+Taputus taputus; 
  
 void setup() {
     
@@ -54,8 +51,8 @@ void setup() {
   lahjat.add(lahja2);
   lahjat.add(lahja3);
   
-  Sonia.start(this); // Start Sonia engine.
-  LiveInput.start(); // Start listening to the microphone
+  Sonia.start(this);
+  LiveInput.start();
   
   imageMode(CENTER);
 }
@@ -70,9 +67,9 @@ void tarkistaLahjat(){
  
 void draw() {
  
-  //checking if menu is passed and the countdown is not finish
-  if (menuKlikattu == false) {
-    menu = new Menu();
+  if (!menuKlikattu) {
+      clear();
+      menu = new Menu();
   }
   
   else{
@@ -82,18 +79,14 @@ void draw() {
       muutaTausta();
       tarkistaAika();
       
-      text(aika, width-40, 40);//display the countdown on top right corner
+      text(aika, width-40, 40);
       
       piirraMinioni(); 
       tarkistaLahjat();
           }
-    else{
-      clear();
-      menu = new Menu();
-      menuKlikattu = false;
-     
-    } 
-  }
+
+}
+
 }
 
 void tarkistaAika() {
@@ -118,12 +111,12 @@ float lahjaY = lahja.annaY();
 if(lahjaX > MINION-LAHJA && lahjaX < MINION+LAHJA ){
   if(lahjaY+LAHJA>y && lahjaY-LAHJA<y){
     tormays = true;
+    menuKlikattu = false;
     println("tormays");
 }  
 }
 }
 
-//back function sets the background scrolling
 void muutaTausta() {
   image(taustaKuva, taustanReuna, height/2);
   taustanReuna = taustanReuna - 5;
@@ -159,7 +152,7 @@ void piirraMinioni() {
 }
 
 void mouseClicked() {
-  if (menuKlikattu == false) {
+  if (!menuKlikattu) {
     if (mouseX >=((width/2)-150) && mouseX <=((width/2)+150)) {
       if (mouseY >=(300) && mouseY <=(400)) {
         alkuAika = millis();
@@ -174,7 +167,7 @@ boolean tarkistaVolume(){
   
   
     float vol = LiveInput.getLevel();
-    float clapLevel = 0.3;  // How loud is a clap
+    float clapLevel = 0.3;
     
     if (vol > clapLevel){ 
       return true;  
