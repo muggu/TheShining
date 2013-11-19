@@ -83,6 +83,12 @@ void draw() {
       }
     
     }
+    else{
+      clear();
+      menu = new Menu();
+      menuKlikattu = false;
+     
+    } 
   }
 }
 
