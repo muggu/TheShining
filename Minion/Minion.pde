@@ -46,11 +46,11 @@ void setup() {
   
   lahjat = new ArrayList<Lahja>();
   taustaKuva = loadImage("tausta.jpg");
-  
-  //ladataan kuvat minionianimaatiota varten ja tallennetaan taulukkoon
-  frameRate(24);
+
+//ladataan kuvat minionianimaatiota varten ja tallennetaan taulukkoon
+ frameRate(24);
   int j = 2;
-  for (int i = 0; i < minioniLkm; i++) {
+    for (int i = 0; i < minioniLkm; i++) {
     if (i < kuvaLkm) { //ladataan kaikki eri kuvat
       String kuvanNimi = "min" + (i + 1) + ".png";
       minionit[i] = loadImage(kuvanNimi);
@@ -61,6 +61,8 @@ void setup() {
     }
   }
 
+
+  
   lahja1 = new Lahja();
   lahja2 = new Lahja();
   lahja3 = new Lahja();
@@ -100,11 +102,11 @@ void draw() {
       text(aika, width-40, 40);
       
       //kierratetaan kuvia %-operaattorilla animaatiota varten
-      minioniIndeksi = (minioniIndeksi + 1) % minioniLkm;
+     minioniIndeksi = (minioniIndeksi + 1) % minioniLkm;
       
       piirraMinioni(); 
       tarkistaLahjat();
-    }
+          }
 
 }
 
@@ -147,9 +149,10 @@ void muutaTausta() {
 }
  
 void piirraMinioni() {
-
+   
   //animaatio
   minioni = minionit[minioniIndeksi];
+
   
   if(hyppy){
     for(int i=0; i<4; i++){
