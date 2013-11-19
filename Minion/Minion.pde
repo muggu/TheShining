@@ -90,6 +90,7 @@ void draw() {
   if (!menuKlikattu) {
       clear();
       menu = new Menu();
+      tarkistaVolume();
   }
   
   else{
@@ -197,6 +198,7 @@ boolean tarkistaVolume(){
     float clapLevel = 0.3;
     
     if (vol > clapLevel){ 
+      menuKlikattu = true;
       return true;  
     }
     else{
