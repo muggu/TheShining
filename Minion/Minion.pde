@@ -12,6 +12,9 @@ int LEVEYS = 640;
 int KORKEUS = 480;
 int pisteet = 0;
 
+int hyppyNopeus = 0;
+float taputusVolume;
+
 float x;
 float y;
 
@@ -98,18 +101,28 @@ void draw() {
     
     if(!peliLoppu){
       clear();
+      
       muutaTausta();
       tarkistaAika();
       
       
-      text(aika, width-40, 40);
-      text(pisteet, width-100, 40);
-      
       //kierratetaan kuvia %-operaattorilla animaatiota varten
      minioniIndeksi = (minioniIndeksi + 1) % minioniLkm;
+
+     
+     if (hyppy){
+      hyppyNopeus = (hyppyNopeus + 10) % 17;
+      hyppaa(-1);
+      image(minioni, x, y);
+     } 
       
       piirraMinioni(); 
       tarkistaLahjat();
+      
+      
+      text(aika, width-40, 40);
+      text(pisteet, width-100, 40);
+
           }
 
 }
@@ -201,6 +214,7 @@ boolean tarkistaVolume(){
     float clapLevel = 0.3;
     
     if (vol > clapLevel){ 
+      taputusVolume = vol;
       menuKlikattu = true;
       return true;  
     }
@@ -210,15 +224,28 @@ boolean tarkistaVolume(){
 }
 
 void hyppaa(int i){
-
-    x = MINION;
-   if(i==-1){
-    y = y-30;
+    
+    int hyppyKorkeus = 0; 
+  
+    if(taputusVolume>0.3){
+      hyppyKorkeus = 30;
+      if(taputusVolume>0.31){
+        hyppyKorkeus = 50;  
     }
+    if (taputusVolume>0.32){
+      hyppyKorkeus = 70;
+    } 
+    }
+  
+    x = MINION;
+    
+   if(i==-1){
+    hyppyNopeus = -hyppyKorkeus;
+}
    
     if(i==1){ 
-      y = y+30;
+      hyppyNopeus = hyppyKorkeus;
     }  
-   image(minioni, x, y);
+    y = y + hyppyNopeus;
 }
 
