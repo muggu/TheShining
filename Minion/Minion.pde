@@ -118,7 +118,7 @@ if(lahjaX > MINION-LAHJA && lahjaX < MINION+LAHJA ){
 }  
 }
 }
- 
+
 //back function sets the background scrolling
 void muutaTausta() {
   image(taustaKuva, taustanReuna, height/2);
