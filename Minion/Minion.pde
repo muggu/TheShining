@@ -1,12 +1,17 @@
 import pitaru.sonia_v2_9.*;
 
 PImage minioni;
+PImage liukuhihna;
 PImage taustaKuva;
 
 int minioniLkm = 24; //kuvien maara animaatiossa
 int kuvaLkm = 13; //erilaisten kuvien maara
 int minioniIndeksi = 0; //piirrettavan kuvan indeksi
 PImage[] minionit = new PImage[minioniLkm];
+
+int liukuhihnaLkm = 7; //kuvien maara animaatiossa
+int liukuhihnaIndeksi = 0; //piirrettavan liukuhihnan indeksi
+PImage[] liukuhihnat = new PImage[liukuhihnaLkm];
 
 int LEVEYS = 640;
 int KORKEUS = 480;
@@ -67,6 +72,12 @@ void setup() {
     }
   }
   
+  //ladataan kuvat liukuhihna-animaatioon
+  for (int i = 0; i < liukuhihnaLkm; i++) {
+    String hihnanNimi = "cb" + (i + 1) + ".png";
+    liukuhihnat[i] = loadImage(hihnanNimi);
+  }
+  
   lahja1 = new Lahja();
   lahja2 = new Lahja();
   lahja3 = new Lahja();
@@ -110,8 +121,9 @@ void draw() {
       text(aika, width-40, 40);
       text(pisteet, width-100, 40);  
 
-      //kierratetaan kuvia %-operaattorilla animaatiota varten
-      minioniIndeksi = (minioniIndeksi + 1) % minioniLkm;     
+      //kierratetaan kuvia %-operaattorilla animaatioita varten
+      minioniIndeksi = (minioniIndeksi + 1) % minioniLkm;  
+      liukuhihnaIndeksi = (liukuhihnaIndeksi + 1) % liukuhihnaLkm;   
       
       piirraMinioni(); 
       tarkistaLahjat();
@@ -144,7 +156,7 @@ void tarkistaAika() {
       peliLoppu = true;
       menuKlikattu = true;
       clear();
-      text("Peli loppui, pisteesi ovat " + pisteet, width-300, 150);
+      text("Peli loppui, pisteesi ovat " + pisteet, width-500, 150);
     }
   }
 }
@@ -174,7 +186,7 @@ void piirraMinioni() {
    
   //animaatio
   minioni = minionit[minioniIndeksi];
-
+  liukuhihna = liukuhihnat[liukuhihnaIndeksi];
   
   if (hyppy) {
     for (int i = 0; i < 4; i++) {
@@ -189,8 +201,10 @@ void piirraMinioni() {
   hyppy = tarkistaVolume();
 
   if (!hyppy && !hyppyKaynnissa) {
-    y = height - 100;
+    y = height - 120;
     x = MINION;
+    
+    image(liukuhihna, width/2, height-39);
     image(minioni, x, y);
   }
    
