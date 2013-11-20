@@ -11,10 +11,13 @@ public class Menu {
     fill(200, 1, 1);
     stroke(0);
     strokeWeight(2);
-    rect((width/2)-150, 300, 300, 100);
+    rect((width/2)-150, 300, 300, 120);
     fill(255);
     textFont(fontti, 24);
-    text("Aloita taputtamalla käsiäsi", (width/2)-140, 360);
+    text("Aloita taputtamalla kasiasi.", (width/2)-140, 330);
+    text("Hyppaa taputtamalla ja", (width/2)-140, 355);
+    text("keraa pisteita osumalla", (width/2)-140, 380);
+    text("paketteihin.", (width/2)-140, 405);
   }
   
 }

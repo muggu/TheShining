@@ -39,7 +39,7 @@ int tarkistaKirkkaus() {
     //lasketaan kirkkauden keskiarvo
     keskiarvo = summa / (korkeus * leveys);
     
-    println(keskiarvo);
+    //println(keskiarvo);
     
     if (keskiarvo > 170) {
       return 2;

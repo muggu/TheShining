@@ -22,6 +22,10 @@ int pisteet = 0;
 
 int hyppyNopeus = 0;
 float taputusVolume;
+float clapLevel = 0.3;
+float alin;
+float keski;
+float ylin;
 
 float x;
 float y;
@@ -220,7 +224,14 @@ void piirraMinioni() {
 boolean tarkistaVolume() {
   
   float vol = LiveInput.getLevel();
-  float clapLevel = 0.3;
+  
+  //konfiguroidaan aanenvoimakkuuden tasot ekan taputuksen perusteella
+  if (!menuKlikattu && vol >= 0.15) {
+    clapLevel = vol*0.8;
+    alin = clapLevel;
+    keski = clapLevel*1.25;
+    ylin = clapLevel*1.5;
+  }
     
   if (vol > clapLevel) { 
     if (!menuKlikattu) {
@@ -245,12 +256,12 @@ void hyppaa(int i) {
     
   int hyppyKorkeus = 0; 
   
-  if (taputusVolume > 0.3) {
+  if (taputusVolume > alin) {
     hyppyKorkeus = 30;
-    if (taputusVolume > 0.31) {
+    if (taputusVolume > keski) {
       hyppyKorkeus = 50;  
     }
-    if (taputusVolume > 0.32) {
+    if (taputusVolume > ylin) {
       hyppyKorkeus = 70;
     } 
   }
