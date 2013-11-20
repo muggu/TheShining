@@ -150,7 +150,7 @@ void tarkistaAika() {
     nykyAika = millis();
     
     aika = ((nykyAika - alkuAika) / 1000);
-    aika = 15 - aika;
+    aika = 30 - aika;
     
     if (aika < 1) {
       peliLoppu = true;
