@@ -41,5 +41,9 @@ public class Lahja {
   public void asetaTormatyksi() {
     tormatty = true;
   }
+  
+  public boolean onkoTormatty() {
+    return tormatty;
+  }
 
 }

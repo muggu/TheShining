@@ -32,11 +32,6 @@ float y;
 
 ArrayList<Lahja> lahjat;
 
-Lahja lahja1;
-Lahja lahja2;
-Lahja lahja3;
-Lahja lahja4;
-
 Menu menu;
 
 boolean tormays = false;
@@ -54,6 +49,7 @@ int hyppyVakio = 0;
 int aika;
 int alkuAika;
 int nykyAika;
+int pidennys = 0;
 
 Kirkkaus kirkkaus;
  
@@ -90,15 +86,9 @@ void setup() {
     liukuhihnat[i] = loadImage(hihnanNimi);
   }
   
-  lahja1 = new Lahja();
-  lahja2 = new Lahja();
-  lahja3 = new Lahja();
-  lahja4 = new Lahja();
-  
-  lahjat.add(lahja1);
-  lahjat.add(lahja2);
-  lahjat.add(lahja3);
-  lahjat.add(lahja4);
+  for (int i = 0; i < 4; i++) {
+    lahjat.add(new Lahja());
+  }
   
   Sonia.start(this);
   LiveInput.start();
@@ -168,13 +158,17 @@ void tarkistaAika() {
     nykyAika = millis();
     
     aika = ((nykyAika - alkuAika) / 1000);
-    aika = 30 - aika;
+    aika = 8 - aika + pidennys;
     
-    if (aika < 1) {
+    if (aika < 1 || pisteet > 3000) {
       peliLoppu = true;
       menuKlikattu = true;
       clear();
-      text("Peli loppui, pisteesi ovat " + pisteet, width-500, 150);
+      if (pisteet >= 3000) {
+        text("Voitit pelin, pisteesi ovat " + pisteet, width-500, 150);
+      } else {
+        text("Peli loppui, pisteesi ovat " + pisteet, width-500, 150);
+      }
     }
   }
 }
@@ -187,7 +181,10 @@ void tormays(Lahja lahja){
   if (lahjaX > MINION-40 && lahjaX < MINION+60 ) {
     if (lahjaY+LAHJA > y-90 && lahjaY < y+90) {
       tormays = true;
-      lahja.asetaTormatyksi();
+      if (lahja.onkoTormatty() == false) {
+        lahja.asetaTormatyksi();
+        pidennys += 1; //pidennetaan jaljella olevaa aikaa
+      }
       pisteet = pisteet + 10;
     }  
   }
