@@ -166,20 +166,12 @@ void tormays(Lahja lahja){
   float lahjaX = lahja.annaX();
   float lahjaY = lahja.annaY();
 
-  if (lahjaX > MINION-LAHJA && lahjaX < MINION+LAHJA ) {
-    if (lahjaY+LAHJA > y && lahjaY-LAHJA < y) {
+  if (lahjaX > MINION-40 && lahjaX < MINION+60 ) {
+    if (lahjaY+LAHJA > y-90 && lahjaY < y+90) {
       tormays = true;
       lahja.asetaTormatyksi();
       pisteet = pisteet + 10;
     }  
-  }
-}
-
-void muutaTausta() {
-  image(taustaKuva, taustanReuna, height/2);
-  taustanReuna = taustanReuna - 5;
-  if (taustanReuna < 0) {
-    taustanReuna = 500;
   }
 }
  
