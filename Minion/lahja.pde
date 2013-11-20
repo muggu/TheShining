@@ -7,6 +7,7 @@ public class Lahja {
   float sijaintiY = 0;
   float nopeus = 0;
   int YLARAJA = 50;
+  boolean tormatty = false;
   
   Lahja () {
     sijaintiX = random(width-300, width+300);
@@ -17,12 +18,15 @@ public class Lahja {
   void nopeus() {
     
     nopeus = random(-10, -30);
-    image(lahjakuva, sijaintiX, sijaintiY);
+    if (tormatty == false) {
+      image(lahjakuva, sijaintiX, sijaintiY);
+    }
     sijaintiX += nopeus;
     
     if (sijaintiX < 0) {
       sijaintiY = random(YLARAJA, height-2*YLARAJA);
       sijaintiX = random(width-300, width+300);
+      tormatty = false;
     }
   }
   
@@ -33,4 +37,9 @@ public class Lahja {
   float annaY() {
     return sijaintiY; 
   }
+  
+  public void asetaTormatyksi() {
+    tormatty = true;
+  }
+
 }

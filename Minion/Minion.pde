@@ -167,8 +167,9 @@ void tormays(Lahja lahja){
   float lahjaY = lahja.annaY();
 
   if (lahjaX > MINION-LAHJA && lahjaX < MINION+LAHJA ) {
-    if (lahjaY+LAHJA>y && lahjaY-LAHJA<y) {
+    if (lahjaY+LAHJA > y && lahjaY-LAHJA < y) {
       tormays = true;
+      lahja.asetaTormatyksi();
       pisteet = pisteet + 10;
     }  
   }
