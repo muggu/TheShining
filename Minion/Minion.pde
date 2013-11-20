@@ -193,7 +193,7 @@ void piirraMinioni() {
   
   hyppy = tarkistaVolume();
 
-  if (!hyppy && !hyppyKaynnissa) {
+  if (!hyppy && !hyppyKaynnissa || y < 0) {
     y = height - 120;
     x = MINION;
     
