@@ -47,8 +47,6 @@ int hyppyVakio = 0;
 int aika;
 int alkuAika;
 int nykyAika;
-
-Taputus taputus; 
  
 void setup() {
     
