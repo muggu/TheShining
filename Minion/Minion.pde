@@ -2,7 +2,10 @@ import pitaru.sonia_v2_9.*;
 
 PImage minioni;
 PImage liukuhihna;
-PImage taustaKuva;
+
+PImage[] taustat = new PImage[3];
+int kuva = 0;
+int edellinen = 0;
 
 int minioniLkm = 24; //kuvien maara animaatiossa
 int kuvaLkm = 13; //erilaisten kuvien maara
@@ -47,6 +50,8 @@ int hyppyVakio = 0;
 int aika;
 int alkuAika;
 int nykyAika;
+
+Kirkkaus kirkkaus;
  
 void setup() {
     
@@ -54,7 +59,12 @@ void setup() {
   smooth();
   
   lahjat = new ArrayList<Lahja>();
-  taustaKuva = loadImage("c.png");
+  
+  taustat[0] = loadImage("c.png");
+  taustat[1] = loadImage("c2.png");
+  taustat[2] = loadImage("c3.png");
+  
+  kirkkaus = new Kirkkaus(this);
 
   //ladataan kuvat minionianimaatiota varten ja tallennetaan taulukkoon
   frameRate(24);
@@ -113,8 +123,14 @@ void draw() {
       
       clear();
       
-      //muutaTausta();
-      image(taustaKuva, width/2, height/2); //tausta pysyy paikallaan
+      //piirretaan tausta webkameran mittaaman kirkkauden mukaan
+      kuva = kirkkaus.tarkistaKirkkaus();
+      if (kuva != -1) { //jos webkameran kuva saatavilla
+        image(taustat[kuva], width/2, height/2);
+        edellinen = kuva;
+      } else {
+        image(taustat[edellinen], width/2, height/2);
+      }
       
       text(aika, width-40, 40);
       text(pisteet, width-100, 40);  
