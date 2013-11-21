@@ -22,11 +22,8 @@ int tarkistaKirkkaus() {
     
     for (int y = 0; y < korkeus; y++) {
       for (int x = 0; x < leveys; x++) {
-    
-        // Get the color stored in the pixel
+        
         int pikselinArvo = video.pixels[indeksi];
-    
-        // Determine the brightness of the pixel
         float pikselinKirkkaus = brightness(pikselinArvo);
         
         //lasketaan kirkkaudet yhteen
@@ -39,14 +36,20 @@ int tarkistaKirkkaus() {
     //lasketaan kirkkauden keskiarvo
     keskiarvo = summa / (korkeus * leveys);
     
-    //println(keskiarvo);
-    
-    if (keskiarvo > 170) {
-      return 2;
-    } else if (keskiarvo > 140) {
-      return 1;
-    } else {
+    if (keskiarvo > 180) {
       return 0;
+    } else if (keskiarvo > 160) {
+      return 1;
+    } else if (keskiarvo > 140) {
+      return 2;
+    } else if (keskiarvo > 120) {
+      return 3;
+    } else if (keskiarvo > 100) {
+      return 4;
+    } else if (keskiarvo > 80) {
+      return 5;
+    } else {
+      return 6;
     }
 
   }

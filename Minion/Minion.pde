@@ -3,9 +3,9 @@ import pitaru.sonia_v2_9.*;
 PImage minioni;
 PImage liukuhihna;
 
-PImage[] taustat = new PImage[3];
-int kuva = 0;
-int edellinen = 0;
+PImage[] taustat = new PImage[7];
+int kuva = 4;
+int edellinen = 4;
 
 int minioniLkm = 24; //kuvien maara animaatiossa
 int kuvaLkm = 13; //erilaisten kuvien maara
@@ -60,10 +60,6 @@ void setup() {
   
   lahjat = new ArrayList<Lahja>();
   
-  taustat[0] = loadImage("c.png");
-  taustat[1] = loadImage("c2.png");
-  taustat[2] = loadImage("c3.png");
-  
   kirkkaus = new Kirkkaus(this);
 
   //ladataan kuvat minionianimaatiota varten ja tallennetaan taulukkoon
@@ -86,6 +82,13 @@ void setup() {
     liukuhihnat[i] = loadImage(hihnanNimi);
   }
   
+  //ladataan taustakuvat
+  for (int i = 0; i < 7; i++) {
+    String taustanNimi = "bg" + (i + 1) + ".png";
+    taustat[i] = loadImage(taustanNimi);
+  }
+  
+  //luodaan lahjat
   for (int i = 0; i < 4; i++) {
     lahjat.add(new Lahja());
   }
@@ -167,7 +170,7 @@ void tarkistaAika() {
       if (pisteet >= 3000) {
         text("Voitit pelin, pisteesi ovat " + pisteet, width-500, 150);
       } else {
-        text("Peli loppui, pisteesi ovat " + pisteet, width-500, 150);
+        text("Aika loppui, pisteesi ovat " + pisteet, width-500, 150);
       }
     }
   }
