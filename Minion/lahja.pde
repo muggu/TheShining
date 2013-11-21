@@ -24,7 +24,7 @@ public class Lahja {
     sijaintiX += nopeus;
     
     if (sijaintiX < 0) {
-      sijaintiY = random(YLARAJA, height-2*YLARAJA);
+      sijaintiY = random(YLARAJA, height-3*YLARAJA);
       sijaintiX = random(width-300, width+300);
       tormatty = false;
     }

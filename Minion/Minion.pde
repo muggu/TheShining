@@ -22,7 +22,7 @@ int pisteet = 0;
 
 int hyppyNopeus = 0;
 float taputusVolume;
-float clapLevel = 0.3;
+float taputus = 0.3;
 float alin;
 float keski;
 float ylin;
@@ -112,10 +112,12 @@ void draw() {
     clear();
     menu = new Menu();
     tarkistaVolume();
+
   }
   
   else {
     
+    tarkistaVolume();
     if (!peliLoppu) {
       
       clear();
@@ -150,6 +152,9 @@ void draw() {
       }
       tarkistaAika();
     }
+    
+    else{
+  }
   }
 
 }
@@ -165,17 +170,25 @@ void tarkistaAika() {
     
     if (aika < 1 || pisteet > 3000) {
       peliLoppu = true;
-      menuKlikattu = true;
       clear();
       if (pisteet >= 3000) {
-        text("Voitit pelin, pisteesi ovat " + pisteet, width-500, 150);
-      } else {
-        text("Aika loppui, pisteesi ovat " + pisteet, width-500, 150);
-      }
+        text("Voitit pelin, pisteesi olivat " + pisteet, width-500, 150);
+      peliVoitettu();  
+    } else {
+        text("Aika loppui, pisteesi olivat " + pisteet + ".", width-500, 150);
+        peliVoitettu(); 
+    }
     }
   }
 }
 
+
+void peliVoitettu(){
+  text("Taputa käsiäsi aloittaaksesi pelin alusta.", width-550, 180);
+      pisteet = 0; 
+      pidennys = 0;
+      aika = 0;
+}
 void tormays(Lahja lahja){
   
   float lahjaX = lahja.annaX();
@@ -227,20 +240,20 @@ boolean tarkistaVolume() {
   
   //konfiguroidaan aanenvoimakkuuden tasot ekan taputuksen perusteella
   if (!menuKlikattu && vol >= 0.15) {
-    clapLevel = vol*0.8;
-    alin = clapLevel;
-    keski = clapLevel*1.25;
-    ylin = clapLevel*1.5;
+    taputus = vol*0.8;
+    alin = taputus;
+    keski = taputus*1.25;
+    ylin = taputus*1.5;
   }
     
-  if (vol > clapLevel) { 
+  if (vol > taputus) { 
     if (!menuKlikattu) {
       alkuAika = millis();
       menuKlikattu = true;
     }
     if (peliLoppu) {
     peliLoppu = false;
-    menuKlikattu = true;
+    menuKlikattu = false;
     }
     taputusVolume = vol;
     return true;  
