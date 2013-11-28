@@ -1,4 +1,7 @@
+PImage image;
+
 void setup() {
+image = loadImage("needle.jpg");
 size(640, 560, P3D);
 }
 
@@ -27,6 +30,7 @@ float angle = 0;
 float angleIncrement = TWO_PI / sides;
 beginShape(QUAD_STRIP);
 for (int i = 0; i < sides + 1; ++i) {
+texture(image);
 vertex(topRadius*cos(angle), 0, topRadius*sin(angle));
 vertex(bottomRadius*cos(angle), tall, bottomRadius*sin(angle));
 angle += angleIncrement;
