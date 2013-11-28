@@ -11,15 +11,15 @@ translate(width / 2, height / 2);
 noStroke();
 fill(255, 255, 255);
 perspective(PI/3.0, float(width)/float(height), 1, 10000);
-camera( 0, mouseY, mouseY+ 40, // eyeX, eyeY, eyeZ
+camera( 0, mouseY, mouseY+ 600, // eyeX, eyeY, eyeZ
 0, 0, 50, // centerX, centerY, centerZ
-0.0, 0.0, 1.0); // upX, upY, upZ
+0.0, 0.0, 90.0); // upX, upY, upZ
 rotateY( mouseX / 100.0 );
 
 translate(0, -40, 0);
-drawCylinder(150, 20, 180, 16); // Draw a mix between a cylinder and a cone
-// drawCylinder(70, 70, 120, 64); // Draw a cylinder
-// drawCylinder(0, 180, 200, 4); // Draw a pyramid
+drawCylinder(66, 1, 150, 6); // Draw a mix between a cylinder and a cone
+drawCylinder(40, 80, -85, 6); // Draw a cylinder
+drawCylinder(7, 100, -200, 6); // Draw a pyramid
 }
 
 void drawCylinder(float topRadius, float bottomRadius, float tall, int sides) {
@@ -35,29 +35,30 @@ endShape();
 
 // If it is not a cone, draw the circular top cap
 if (topRadius != 0) {
-angle = 0;
-beginShape(TRIANGLE_FAN);
+  angle = 0;
+  beginShape(TRIANGLE_FAN);
 
 // Center point
 vertex(0, 0, 0);
 for (int i = 0; i < sides + 1; i++) {
-vertex(topRadius * cos(angle), 0, topRadius * sin(angle));
-angle += angleIncrement;
+    vertex(topRadius * cos(angle), 0, topRadius * sin(angle));
+    angle += angleIncrement;
 }
-endShape();
+  endShape();
 }
 
 // If it is not a cone, draw the circular bottom cap
 if (bottomRadius != 0) {
-angle = 0;
-beginShape(TRIANGLE_FAN);
+  angle = 0;
+  beginShape(TRIANGLE_FAN);
 
 // Center point
-vertex(0, tall, 0);
-for (int i = 0; i < sides + 1; i++) {
-vertex(bottomRadius * cos(angle), tall, bottomRadius * sin(angle));
-angle += angleIncrement;
+  vertex(0, tall, 0);
+  for (int i = 0; i < sides + 1; i++) {
+    vertex(bottomRadius * cos(angle), tall, bottomRadius * sin(angle));
+    angle += angleIncrement;
 }
-endShape();
+  endShape();
 }
 }
+
